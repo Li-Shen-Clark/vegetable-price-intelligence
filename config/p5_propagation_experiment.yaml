@@ -7,6 +7,12 @@ city_geo_path: reference/dim_city_geo.csv
 audit_json_path: artifacts/p5/feasibility_audit.json
 audit_markdown_path: docs/p5_feasibility_audit.md
 protocol_markdown_path: docs/p5_experiment_protocol.md
+propagation_mart_dir: data/modeling/p5_propagation_mart
+mart_version: p5_propagation_mart_v0.1
+baseline_artifact_dir: artifacts/p5/baselines
+model_artifact_dir: artifacts/p5/models
+stability_artifact_dir: artifacts/p5/stability
+final_artifact_dir: artifacts/p5/final
 official_tiers: ['A']
 shadow_tiers: ['B']
 excluded_quality_flags: ['poor']
@@ -43,9 +49,13 @@ minimum_candidate_sources_per_target: 5
 maximum_candidate_pair_share: 0.35
 primary_lags_bins: [1, 2, 3, 4]
 weekly_lags_bins: [1, 2]
+minimum_model_train_rows: 300
+minimum_model_validation_rows: 60
+minimum_model_final_test_rows: 80
 fdr_q: 0.05
 bootstrap_resamples: 250
 bootstrap_block_bins: 8
+bootstrap_seed: 20260914
 minimum_stability_rate: 0.60
 validation_minimum_rmse_improvement: 0.01
 validation_maximum_mae_degradation: 0.005
@@ -55,4 +65,4 @@ release_minimum_products: 5
 release_minimum_edges_per_product: 3
 release_minimum_positive_edge_share: 0.70
 release_minimum_median_rmse_improvement: 0.01
-final_test_consumed: false
+final_test_consumed: true

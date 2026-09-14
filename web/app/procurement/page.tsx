@@ -7,6 +7,7 @@ import {
   Boxes,
   Calculator,
   CircleAlert,
+  CircleGauge,
   Database,
   FlaskConical,
   Gauge,
@@ -462,6 +463,9 @@ export default function ProcurementPage() {
             </Link>
             <Link href="/alerts" className="inline-flex h-8 items-center gap-1.5 rounded-md border border-primary/20 bg-primary/7 px-3 font-medium text-primary transition-colors hover:bg-primary/12">
               <Siren className="size-3.5" aria-hidden="true" /> 风险预警
+            </Link>
+            <Link href="/propagation" className="inline-flex h-8 items-center gap-1.5 rounded-md border border-primary/20 bg-primary/7 px-3 font-medium text-primary transition-colors hover:bg-primary/12">
+              <CircleGauge className="size-3.5" aria-hidden="true" /> 共同冲击
             </Link>
             <Badge className="bg-amber-100 text-amber-950 hover:bg-amber-100">
               <Database data-icon="inline-start" /> Historical scenario

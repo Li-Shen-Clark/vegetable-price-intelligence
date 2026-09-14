@@ -537,6 +537,13 @@ export default function Home() {
               <Truck className="size-3.5" aria-hidden="true" />
               采购情景
             </Link>
+            <Link
+              href="/propagation"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-primary/20 bg-primary/7 px-3 font-medium text-primary transition-colors hover:bg-primary/12"
+            >
+              <CircleGauge className="size-3.5" aria-hidden="true" />
+              共同冲击
+            </Link>
             <Badge className="bg-amber-100 text-amber-900 hover:bg-amber-100">
               <Database data-icon="inline-start" />
               Historical only
@@ -576,7 +583,7 @@ export default function Home() {
           </div>
 
           <div className="mb-4 rounded-xl border border-primary/15 bg-card/82 p-3 shadow-sm" aria-label="Market-to-Pricing 决策链">
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1.15fr] lg:items-stretch">
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr_auto_1.15fr] lg:items-stretch">
               <div className="rounded-lg bg-muted/65 px-3 py-2">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">01 · 市场基准</p>
                 <p className="mt-0.5 text-xs font-medium">价格离散与季节位置</p>
@@ -597,8 +604,13 @@ export default function Home() {
                 <p className="mt-0.5 text-xs font-medium">空间摩擦与到岸成本</p>
               </div>
               <ArrowRight className="hidden size-4 self-center text-muted-foreground lg:block" aria-hidden="true" />
+              <div className="rounded-lg bg-muted/65 px-3 py-2">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">05 · 冲击暴露</p>
+                <p className="mt-0.5 text-xs font-medium">共同压力与复核范围</p>
+              </div>
+              <ArrowRight className="hidden size-4 self-center text-muted-foreground lg:block" aria-hidden="true" />
               <div className="col-span-2 rounded-lg bg-primary px-3 py-2 text-primary-foreground lg:col-span-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] opacity-75">05 · Pricing Engine</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] opacity-75">06 · Pricing Engine</p>
                 <p className="mt-0.5 text-xs font-medium">成本基准与毛利复核输入</p>
               </div>
             </div>

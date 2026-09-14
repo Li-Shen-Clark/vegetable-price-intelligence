@@ -27,6 +27,12 @@ REQUIRED_CONFIG_KEYS = {
     "audit_json_path",
     "audit_markdown_path",
     "protocol_markdown_path",
+    "propagation_mart_dir",
+    "mart_version",
+    "baseline_artifact_dir",
+    "model_artifact_dir",
+    "stability_artifact_dir",
+    "final_artifact_dir",
     "official_tiers",
     "shadow_tiers",
     "excluded_quality_flags",
@@ -63,6 +69,9 @@ REQUIRED_CONFIG_KEYS = {
     "maximum_candidate_pair_share",
     "primary_lags_bins",
     "weekly_lags_bins",
+    "minimum_model_train_rows",
+    "minimum_model_validation_rows",
+    "minimum_model_final_test_rows",
     "fdr_q",
     "bootstrap_resamples",
     "bootstrap_block_bins",
@@ -224,12 +233,19 @@ def add_propagation_residuals(
     primary: pd.DataFrame,
     eligible: pd.DataFrame,
     config: dict[str, Any],
+    *,
+    bin_days: int = 3,
 ) -> pd.DataFrame:
     keys = eligible[["vegetable_id", "city_id"]]
     panel = primary.merge(keys, on=["vegetable_id", "city_id"], how="inner")
     panel["split"] = assign_split(panel["bin_start"], config)
     panel = panel.loc[panel["split"].notna() & panel["log_return"].notna()].copy()
-    panel["season_position"] = ((panel["bin_start"].dt.dayofyear - 1) // 3).astype(int)
+    if bin_days == 7:
+        panel["season_position"] = panel["bin_start"].dt.isocalendar().week.astype(int)
+    else:
+        panel["season_position"] = (
+            (panel["bin_start"].dt.dayofyear - 1) // bin_days
+        ).astype(int)
 
     train = panel.loc[panel["split"].eq("train")]
     city_season = (
@@ -507,7 +523,9 @@ def run_audit(root: Path, config: dict[str, Any]) -> dict[str, Any]:
         minimum_observations=int(config["robustness_minimum_observations_per_bin"]),
     )
     eligible = eligible_series(primary, weekly, config)
-    residuals = add_propagation_residuals(primary, eligible, config)
+    residuals = add_propagation_residuals(
+        primary, eligible, config, bin_days=int(config["primary_bin_days"])
+    )
     edges = build_candidate_edges(eligible, tiers, geo, config)
 
     tier_counts = tiers.groupby("vegetable_id", observed=True)["city_id"].nunique()

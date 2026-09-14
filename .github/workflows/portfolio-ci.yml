@@ -1,0 +1,55 @@
+name: Portfolio code checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  code-only-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out publishable code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run data-free portfolio contracts
+        run: >-
+          python -m unittest
+          tests.test_portfolio_bundle
+          tests.test_pricing_narrative
+          tests.test_p5_propagation_page
+          tests.test_p6_portfolio_contract
+          tests.test_p6_career_materials
+          tests.test_p6_case_study_page
+          tests.test_p6_ci_contract
+          -v
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install web dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Lint all web code
+        working-directory: web
+        run: npm run lint
+
+      - name: Build the data-free portfolio shell
+        working-directory: web
+        run: npm run build

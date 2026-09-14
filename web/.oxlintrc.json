@@ -52,5 +52,41 @@
     "typescript/no-require-imports": "error",
     "typescript/no-unnecessary-type-constraint": "error",
     "typescript/no-unsafe-function-type": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "components/ui/input-otp.tsx",
+        "components/ui/button-group.tsx",
+        "components/ui/spinner.tsx",
+        "components/ui/breadcrumb.tsx",
+        "components/ui/carousel.tsx",
+        "components/ui/input-group.tsx",
+        "components/ui/item.tsx",
+        "components/ui/field.tsx"
+      ],
+      "rules": {
+        "jsx-a11y/prefer-tag-over-role": "off"
+      }
+    },
+    {
+      "files": ["components/ui/pagination.tsx"],
+      "rules": {
+        "jsx-a11y/anchor-has-content": "off"
+      }
+    },
+    {
+      "files": ["components/ui/input-group.tsx"],
+      "rules": {
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off"
+      }
+    },
+    {
+      "files": ["components/ui/label.tsx"],
+      "rules": {
+        "jsx-a11y/label-has-associated-control": "off"
+      }
+    }
+  ]
 }

@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import {
   ArrowLeft,
+  BriefcaseBusiness,
   CalendarClock,
   CheckCircle2,
   CircleAlert,
@@ -368,6 +369,12 @@ export default function ForecastPage() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-xs">
+            <Link
+              href="/case-study"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background/75 px-3 font-medium transition-colors hover:bg-muted"
+            >
+              <BriefcaseBusiness className="size-3.5" aria-hidden="true" /> Case Study
+            </Link>
             <Link
               href="/"
               className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background/75 px-3 font-medium text-foreground transition-colors hover:bg-muted"

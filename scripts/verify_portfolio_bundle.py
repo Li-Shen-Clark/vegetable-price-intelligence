@@ -13,10 +13,17 @@ MAX_TRACKED_BYTES = 50 * 1024 * 1024
 
 REQUIRED_PATHS = (
     ".gitignore",
+    ".github/workflows/portfolio-ci.yml",
     "README.md",
     "GUIDEBOOK.md",
+    "PORTFOLIO_CASE_STUDY.md",
     "docs/economics_pricing_stage_gate.md",
     "docs/data_access_and_reproducibility.md",
+    "docs/p6_evidence_matrix.md",
+    "docs/pricing_integration_contract.md",
+    "docs/p6_career_pack.md",
+    "docs/p6_demo_script.md",
+    "docs/p6_delivery_checklist.md",
     "data/README.md",
     "config/p4_procurement.yaml",
     "web/package.json",
@@ -25,6 +32,9 @@ REQUIRED_PATHS = (
     "web/app/forecast/page.tsx",
     "web/app/alerts/page.tsx",
     "web/app/procurement/page.tsx",
+    "web/app/propagation/page.tsx",
+    "web/app/case-study/page.tsx",
+    "web/public/og.png",
 )
 
 REQUIRED_IGNORE_RULES = (
@@ -68,10 +78,19 @@ FORBIDDEN_PREFIXES = (
 PUBLIC_TEXT_PATHS = (
     "README.md",
     "GUIDEBOOK.md",
+    "PORTFOLIO_CASE_STUDY.md",
+    "docs/economics_pricing_stage_gate.md",
+    "docs/p6_evidence_matrix.md",
+    "docs/pricing_integration_contract.md",
+    "docs/p6_career_pack.md",
+    "docs/p6_demo_script.md",
+    "docs/p6_delivery_checklist.md",
     "web/app/page.tsx",
     "web/app/forecast/page.tsx",
     "web/app/alerts/page.tsx",
     "web/app/procurement/page.tsx",
+    "web/app/propagation/page.tsx",
+    "web/app/case-study/page.tsx",
 )
 
 

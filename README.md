@@ -1,6 +1,6 @@
 # Vegetable Price Intelligence
 
-**作品集入口：** [Portfolio Case Study](PORTFOLIO_CASE_STUDY.md) · 本地网站 `/case-study`
+**作品集入口：** [Live Portfolio](https://li-shen-clark.github.io/vegetable-price-intelligence/) · [Portfolio Case Study](PORTFOLIO_CASE_STUDY.md) · 本地网站 `/case-study`
 
 该项目把 2014–2022 年、117 个城市、30 种蔬菜的批发市场日度报价整理为可追溯的市场事实、城市日价格和覆盖 Tier，并在此基础上实现 Price Monitor、概率预测、风险预警、采购情景，以及共同冲击与价格传播实验。
 
@@ -8,7 +8,7 @@
 
 从 P5 开始，所有阶段必须先通过统一的 Economics & Pricing Stage Gate：明确决策用户、经济机制、单位与约束、比较基准或识别、不确定性、Pricing 工作流接口和不可声称内容。Gate 见 `docs/economics_pricing_stage_gate.md`，避免只增加模型而丢失经济问题。
 
-当前状态：**P0–P6 v0.1 已完成本地验收**。P2 的正式结论是 `partial_release`；P3 为 `alert_release`；P4 为只支持历史参数化演示的 `scenario_release`；P5 的方向网络未通过 final-test 门槛，因此正式降级为 `common_shock_only`。P6 已交付无数据 Case Study、Pricing 集成设计契约、岗位化求职材料和只读代码 CI。六个网站页面均未公开部署。
+当前状态：**P0–P7 v0.1 已完成验收，P7 求职版已公开发布**。P2 的正式结论是 `partial_release`；P3 为 `alert_release`；P4 为只支持历史参数化演示的 `scenario_release`；P5 的方向网络未通过 final-test 门槛，因此正式降级为 `common_shock_only`。P6 已交付无数据 Case Study、Pricing 集成设计契约、岗位化求职材料和只读代码 CI；P7 把英文优先的无数据 Case Study 发布到 GitHub Pages。五个依赖授权数据的分析工作台仍只在本地运行。
 
 ## 已完成的数据资产
 
@@ -105,7 +105,7 @@ GitHub 基线只保留代码、配置、测试和 Markdown 文档，不上传原
 
 ```bash
 python3 scripts/verify_portfolio_bundle.py
-python3 -m unittest tests.test_portfolio_bundle tests.test_pricing_narrative tests.test_p5_propagation_page tests.test_p6_portfolio_contract tests.test_p6_career_materials tests.test_p6_case_study_page tests.test_p6_ci_contract -v
+python3 -m unittest tests.test_portfolio_bundle tests.test_pricing_narrative tests.test_p5_propagation_page tests.test_p6_portfolio_contract tests.test_p6_career_materials tests.test_p6_case_study_page tests.test_p6_ci_contract tests.test_p7_pages_site -v
 cd web
 npm ci
 npm run lint
@@ -193,7 +193,7 @@ cd web
 npm run build
 ```
 
-当前完整本地数据工作区设计为 169 项测试：152 项 P0–P5 数据、模型与产品测试，加上 17 项 P6 作品集、岗位材料、静态页面和 CI 契约测试。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性、共同因子、多重检验、样本外增益和历史边界；全新 clone 在恢复历史数据前运行 31 项 code-only 测试、全站 lint 和网站构建。
+当前完整本地数据工作区设计为 177 项测试：152 项 P0–P5 数据、模型与产品测试，17 项 P6 作品集契约，以及 8 项 P7 Pages 内容、安全和发布契约。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性、共同因子、多重检验、样本外增益和历史边界；全新 clone 在恢复历史数据前运行 39 项 code-only 测试、全站 lint、网站构建和 Pages 白名单校验。
 
 ## 关键文档
 
@@ -212,7 +212,7 @@ npm run build
 - `docs/p4_runbook.md`：P4 从坐标维度到采购页面的顺序化重建与排错说明。
 - `docs/p4_interview_guide.md`：P4 的求职讲解、演示路径和常见追问。
 - `docs/p4_delivery_checklist.md`：P4 最终测试、构建、HTTP 响应和证据清单。
-- `docs/economics_pricing_stage_gate.md`：P0–P6 回顾及后续每阶段必过的经济学/Pricing 七问门槛。
+- `docs/economics_pricing_stage_gate.md`：P0–P7 回顾及后续每阶段必过的经济学/Pricing 七问门槛。
 - `docs/p5_readiness_checklist.md`：P5 开工结论、传播分析契约、经济学门槛和 GitHub/本地边界。
 - `P5_执行计划.md`：P5 从实验契约到 `common_shock_only` 产品的冻结任务卡和发布门槛。
 - `docs/p5_model_card.md`：一次性 final test、网络 no-go 和共同冲击降级结论。
@@ -225,6 +225,8 @@ npm run build
 - `docs/p6_career_pack.md`：三类目标岗位的简历 bullets、面试回答和边界用语。
 - `docs/p6_demo_script.md`：90 秒与 5 分钟的本地演示脚本。
 - `docs/p6_delivery_checklist.md`：P6 叙事、质量、无数据 CI、Gate 和 Git 边界清单。
+- `P7_执行计划.md`：P7 从公开内容审计、Pages 白名单到上线验收的冻结任务卡。
+- `docs/p7_delivery_checklist.md`：P7 公开 URL、Actions、metadata、内容、数据边界和最终 Gate 清单。
 - `docs/data_access_and_reproducibility.md`：作品集模式、完整数据恢复、Git 排除范围和公开许可门槛。
 - `docs/data_dictionary.md`：来源单位、所有核心表字段和业务含义。
 - `docs/data_quality_report.md`：七项平台指标、主要风险和下游使用边界。
@@ -237,4 +239,4 @@ npm run build
 
 最新数据为 2022-06-22，不能用于 2026 年当前报价或采购执行。原始数据没有成交量、规格、包装、道路距离、运费和供应能力；采购模块只能先做明确标注假设的情景分析。Tier A 也只表示适合在本历史窗口内做正式回测，不表示实时可用。
 
-P1–P6 当前均为**本地完成、未公开部署**。P2 已证明 14/28 日部分切片具有样本外改善，但没有通过 8% 总体目标、7 日产品覆盖门槛和总体区间覆盖门槛。P3 独立通过全局离线门槛，但召回仍为 37.69%，且提醒中 78.69% 是误报。P4 对弱预测组保留基线，并用参数化运输、损耗与风险缓冲形成询价候选。P5 的方向关系未通过 final-test 网络门槛，因此只发布共同冲击与城市暴露。P6 只把这些可追溯证据包装为求职作品集，没有产生商业收益证据或上线状态。整个系统不能声称实时采购建议、真实节省、因果传播、最优零售价或自动调价。
+P1–P5 的数据型分析工作台仍为**本地历史演示**；P7 只公开不含数据的招聘 Case Study。P2 已证明 14/28 日部分切片具有样本外改善，但没有通过 8% 总体目标、7 日产品覆盖门槛和总体区间覆盖门槛。P3 独立通过全局离线门槛，但召回仍为 37.69%，且提醒中 78.69% 是误报。P4 对弱预测组保留基线，并用参数化运输、损耗与风险缓冲形成询价候选。P5 的方向关系未通过 final-test 网络门槛，因此只发布共同冲击与城市暴露。P6/P7 只把这些可追溯证据包装并公开为求职作品集；公开上线不产生商业收益、实时系统或更强模型证据。整个系统不能声称实时采购建议、真实节省、因果传播、最优零售价或自动调价。

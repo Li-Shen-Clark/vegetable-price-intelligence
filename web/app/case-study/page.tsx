@@ -153,7 +153,7 @@ export default function CaseStudyPage() {
             ['8.68M', '市场报价', '保留原始审计键与无效记录'],
             ['117', '城市', '城市日两级中位价格'],
             ['30', '蔬菜', '10 种进入正式建模范围'],
-            ['152', '本地自动测试', '数据、泄漏、指标与发布契约'],
+            ['177', '本地自动测试', '数据、泄漏、指标与发布契约'],
           ].map(([value, label, note]) => (
             <Card key={label} className="border-0 bg-card/92 ring-1 ring-foreground/8">
               <CardContent className="pt-4">

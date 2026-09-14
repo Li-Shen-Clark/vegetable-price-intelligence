@@ -1,0 +1,95 @@
+import unittest
+from pathlib import Path
+
+from scripts.verify_pages_bundle import verify
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SITE = ROOT / "portfolio-site"
+INDEX = SITE / "index.html"
+WORKFLOW = ROOT / ".github/workflows/pages.yml"
+
+
+class P7PagesSiteTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.index = INDEX.read_text(encoding="utf-8")
+        cls.workflow = WORKFLOW.read_text(encoding="utf-8")
+
+    def test_01_recruiter_first_view_has_role_scale_and_decision(self):
+        for phrase in [
+            "From wholesale market signals to governed pricing decisions.",
+            "End-to-end owner",
+            "8.68M",
+            "117",
+            "30",
+            "177",
+        ]:
+            self.assertIn(phrase, self.index)
+
+    def test_02_formal_product_states_and_failure_remain_visible(self):
+        for phrase in [
+            "Partial release",
+            "Alert release",
+            "Scenario release",
+            "Network no-go",
+            "4 of 15 frozen edges",
+            "0</strong> published directional edges",
+        ]:
+            self.assertIn(phrase, self.index)
+
+    def test_03_economics_and_pricing_engine_boundary_are_explicit(self):
+        for phrase in [
+            "Price dispersion &amp; measurement",
+            "Expectations &amp; uncertainty",
+            "Transaction costs &amp; risk",
+            "Common shocks &amp; identification",
+            "Complementary to a Pricing Engine—not a competing engine.",
+            "Then—and only then—produce an executable price.",
+        ]:
+            self.assertIn(phrase, self.index)
+
+    def test_04_historical_and_nonproduction_limits_are_explicit(self):
+        for phrase in [
+            "Historical cutoff: 2022-06-22",
+            "No automated pricing",
+            "Not supported",
+            "Demand elasticity or willingness to pay",
+            "Causal price propagation",
+        ]:
+            self.assertIn(phrase, self.index)
+
+    def test_05_metadata_uses_the_final_github_pages_origin(self):
+        origin = "https://li-shen-clark.github.io/vegetable-price-intelligence/"
+        self.assertIn(f'<link rel="canonical" href="{origin}"', self.index)
+        self.assertIn(f'<meta property="og:url" content="{origin}"', self.index)
+        self.assertIn(f'{origin}og.png', self.index)
+        self.assertNotIn("localhost", self.index)
+
+    def test_06_public_page_has_no_data_or_active_runtime(self):
+        for phrase in ["<script", "fetch(", "<form", ".csv", ".parquet", ".json", "/data/"]:
+            self.assertNotIn(phrase, self.index)
+
+    def test_07_pages_workflow_has_minimum_permissions_and_exact_payload(self):
+        for phrase in [
+            "contents: read",
+            "pages: write",
+            "id-token: write",
+            "actions/configure-pages@v5",
+            "actions/upload-pages-artifact@v4",
+            "actions/deploy-pages@v4",
+            "path: portfolio-site",
+            "python3 scripts/verify_pages_bundle.py",
+        ]:
+            self.assertIn(phrase, self.workflow)
+        for phrase in ["secrets.", "web/public/data", "artifacts/", ".csv", ".parquet"]:
+            self.assertNotIn(phrase, self.workflow)
+
+    def test_08_pages_bundle_verifier_passes(self):
+        result = verify()
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["files"], 6)
+
+
+if __name__ == "__main__":
+    unittest.main()

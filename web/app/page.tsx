@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   Area,
@@ -16,6 +16,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
+  BriefcaseBusiness,
   CircleAlert,
   Database,
   CircleGauge,
@@ -298,6 +299,7 @@ export default function Home() {
   const [payload, setPayload] = useState<ProductPayload | null>(null);
   const [vegetableId, setVegetableId] = useState<number | null>(null);
   const [cityId, setCityId] = useState<string | null>(null);
+  const cityIdRef = useRef<string | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -311,6 +313,7 @@ export default function Home() {
       .then((data) => {
         setMetadata(data);
         setVegetableId(data.defaults.vegetable_id);
+        cityIdRef.current = data.defaults.city_id;
         setCityId(data.defaults.city_id);
         setSelectedMonth(data.defaults.month);
       })
@@ -327,8 +330,6 @@ export default function Home() {
     const product = metadata.products.find((item) => item.vegetable_id === vegetableId);
     if (!product) return;
     const controller = new AbortController();
-    setPayload(null);
-    setError(null);
     fetch(`/${product.data_file}`, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error('product');
@@ -336,7 +337,7 @@ export default function Home() {
       })
       .then((data) => {
         const profiles = readProfiles(data);
-        const currentProfile = profiles.find((item) => item.cityId === cityId);
+        const currentProfile = profiles.find((item) => item.cityId === cityIdRef.current);
         const fallbackProfile =
           profiles.find((item) => item.cityId === metadata.defaults.city_id && item.monitorEligible) ??
           profiles.find((item) => item.monitorEligible);
@@ -349,6 +350,7 @@ export default function Home() {
         const nextMonth = completeMonths.includes(metadata.defaults.month)
           ? metadata.defaults.month
           : completeMonths.at(-1);
+        cityIdRef.current = nextCity;
         setCityId(nextCity);
         setSelectedMonth(nextMonth ?? null);
         setPayload(data);
@@ -486,6 +488,7 @@ export default function Home() {
     : 0;
 
   function handleCityChange(nextCityId: string) {
+    cityIdRef.current = nextCityId;
     setCityId(nextCityId);
     const nextCityRecords = records.filter(
       (record) =>
@@ -496,6 +499,12 @@ export default function Home() {
     setSelectedMonth((current) =>
       current && availableMonths.includes(current) ? current : (availableMonths.at(-1) ?? null),
     );
+  }
+
+  function handleVegetableChange(nextVegetableId: number) {
+    setPayload(null);
+    setError(null);
+    setVegetableId(nextVegetableId);
   }
 
   return (
@@ -516,6 +525,13 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-xs">
+            <Link
+              href="/case-study"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background/75 px-3 font-medium transition-colors hover:bg-muted"
+            >
+              <BriefcaseBusiness className="size-3.5" aria-hidden="true" />
+              Case Study
+            </Link>
             <Link
               href="/alerts"
               className="inline-flex h-8 items-center gap-1.5 rounded-md border border-primary/20 bg-primary/7 px-3 font-medium text-primary transition-colors hover:bg-primary/12"
@@ -621,13 +637,13 @@ export default function Home() {
 
           <Card className="border-0 bg-[linear-gradient(115deg,var(--card),color-mix(in_oklab,var(--accent)_55%,var(--card)))] py-3 shadow-[0_14px_44px_rgb(43_66_54/7%)] ring-1 ring-foreground/8">
             <CardContent className="grid gap-3 px-3 sm:grid-cols-2 sm:px-4 lg:grid-cols-[1.1fr_1.2fr_0.9fr_auto] lg:items-end">
-              <label className="grid gap-1.5 text-xs font-medium text-muted-foreground">
-                蔬菜品类
+              <div className="grid gap-1.5 text-xs font-medium text-muted-foreground">
+                <p id="vegetable-selector-label">蔬菜品类</p>
                 <Select
                   value={vegetableId === null ? null : String(vegetableId)}
-                  onValueChange={(value) => value && setVegetableId(Number(value))}
+                  onValueChange={(value) => value && handleVegetableChange(Number(value))}
                 >
-                  <SelectTrigger className="h-10! w-full bg-card px-3 text-foreground shadow-xs">
+                  <SelectTrigger aria-labelledby="vegetable-selector-label" className="h-10! w-full bg-card px-3 text-foreground shadow-xs">
                     <SelectValue>
                       {currentProduct
                         ? `${currentProduct.vegetable_name_zh} · ${currentProduct.vegetable_code}`
@@ -642,16 +658,16 @@ export default function Home() {
                     ))}
                   </SelectContent>
                 </Select>
-              </label>
+              </div>
 
-              <label className="grid gap-1.5 text-xs font-medium text-muted-foreground">
-                城市与覆盖等级
+              <div className="grid gap-1.5 text-xs font-medium text-muted-foreground">
+                <p id="city-selector-label">城市与覆盖等级</p>
                 <Select
                   value={cityId}
                   onValueChange={(value) => value && handleCityChange(String(value))}
                   disabled={!payload}
                 >
-                  <SelectTrigger className="h-10! w-full bg-card px-3 text-foreground shadow-xs">
+                  <SelectTrigger aria-labelledby="city-selector-label" className="h-10! w-full bg-card px-3 text-foreground shadow-xs">
                     <SelectValue>
                       {currentCity && currentProfile
                         ? `${currentCity.city_name_zh} · ${currentCity.province_name_zh} · Tier ${currentProfile.tier}`
@@ -667,16 +683,16 @@ export default function Home() {
                     ))}
                   </SelectContent>
                 </Select>
-              </label>
+              </div>
 
-              <label className="grid gap-1.5 text-xs font-medium text-muted-foreground">
-                历史月份
+              <div className="grid gap-1.5 text-xs font-medium text-muted-foreground">
+                <p id="month-selector-label">历史月份</p>
                 <Select
                   value={selectedMonth}
                   onValueChange={(value) => value && setSelectedMonth(String(value))}
                   disabled={!payload}
                 >
-                  <SelectTrigger className="h-10! w-full bg-card px-3 text-foreground shadow-xs">
+                  <SelectTrigger aria-labelledby="month-selector-label" className="h-10! w-full bg-card px-3 text-foreground shadow-xs">
                     <SelectValue>{selectedMonth ? formatMonth(selectedMonth) : '载入月份'}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
@@ -687,7 +703,7 @@ export default function Home() {
                     ))}
                   </SelectContent>
                 </Select>
-              </label>
+              </div>
 
               <div className="flex h-10 items-center gap-2 rounded-lg border border-primary/15 bg-primary/7 px-3 text-xs text-primary sm:col-span-2 lg:col-span-1">
                 <ShieldCheck className="size-4 shrink-0" aria-hidden="true" />

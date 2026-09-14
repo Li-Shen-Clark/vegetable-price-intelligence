@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import {
   ArrowLeft,
+  BriefcaseBusiness,
   BellRing,
   CalendarDays,
   CheckCircle2,
@@ -353,7 +354,6 @@ export default function AlertsPage() {
     const product = metadata.products.find((item) => item.vegetable_id === vegetableId);
     if (!product) return;
     const controller = new AbortController();
-    setPayload(null);
     fetch(`/${product.data_file}`, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error('product');
@@ -435,6 +435,12 @@ export default function AlertsPage() {
       '冻结阈值没有触发提醒。保留常规监控；pricing engine 仍按成本、库存、利润和业务规则独立决策。';
   }
 
+  function handleVegetableChange(nextVegetableId: number) {
+    setPayload(null);
+    setError(null);
+    setVegetableId(nextVegetableId);
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border/70 bg-card/86 backdrop-blur-xl">
@@ -453,6 +459,12 @@ export default function AlertsPage() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-xs">
+            <Link
+              href="/case-study"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background/75 px-3 font-medium transition-colors hover:bg-muted"
+            >
+              <BriefcaseBusiness className="size-3.5" aria-hidden="true" /> Case Study
+            </Link>
             <Link
               href="/"
               className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background/75 px-3 font-medium text-foreground transition-colors hover:bg-muted"
@@ -520,7 +532,7 @@ export default function AlertsPage() {
                 <p className="mb-1.5 text-xs font-medium text-muted-foreground">产品</p>
                 <Select
                   value={vegetableId?.toString() ?? ''}
-                  onValueChange={(value) => setVegetableId(Number(value))}
+                  onValueChange={(value) => handleVegetableChange(Number(value))}
                 >
                   <SelectTrigger className="w-full"><SelectValue placeholder="选择产品" /></SelectTrigger>
                   <SelectContent>

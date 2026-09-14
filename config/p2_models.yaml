@@ -1,0 +1,18 @@
+model_contract_version: p2_point_models_v0.1
+train_mart_path: data/modeling/p2_forecast_mart/train.parquet
+validation_mart_path: data/modeling/p2_forecast_mart/validation.parquet
+baseline_predictions_path: artifacts/p2/baselines/validation_predictions.parquet
+baseline_scorecard_path: artifacts/p2/baselines/validation_scorecard.json
+output_directory: artifacts/p2/models
+ridge_alphas: [0.1, 1.0, 10.0, 100.0]
+ridge_shrink_factors: [0.25, 0.5, 0.75, 1.0]
+hurdle_alpha: 10.0
+hurdle_change_threshold: 0.01
+hurdle_shrink_factors: [0.5, 0.75, 1.0]
+damped_trend_factors: [0.1, 0.25, 0.5]
+weekly_blend_weights: [0.1, 0.25, 0.5]
+seasonal_blend_weights: [0.1, 0.25, 0.5]
+maximum_absolute_log_return: 1.0
+minimum_validation_improvement: 0.0
+minimum_improved_series_share: 0.5
+

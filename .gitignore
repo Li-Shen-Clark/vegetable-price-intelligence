@@ -1,0 +1,58 @@
+# macOS and editor files
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Node dependencies and generated builds
+web/node_modules/
+web/.next/
+web/.vinext/
+web/dist/
+web/.wrangler/
+web/coverage/
+*.tsbuildinfo
+
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Large local source archives and raw/derived data
+OneDrive_*.zip
+dataSource/
+data/*
+!data/README.md
+artifacts/
+baselines/
+web/public/data/
+reference/*.csv
+docs/**/*.csv
+docs/**/*.json
+docs/evidence/
+unmatched_markets.csv
+*.parquet
+*.csv
+
+# Execution records stay local and are never published
+*执行日志.md
+
+# Temporary files
+*.tmp
+*.log
+.tmp/
+tmp/

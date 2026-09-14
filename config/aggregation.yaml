@@ -1,0 +1,14 @@
+city_aggregation_version: city_price_v0.1
+city_trim_fraction: 0.10
+reliability_weight_freshness: 0.40
+reliability_weight_outlier: 0.25
+reliability_weight_duplicate: 0.10
+reliability_weight_mapping_confidence: 0.10
+reliability_weight_market_support: 0.15
+reliability_market_support_target: 2
+mapping_confidence_high_score: 1.0
+mapping_confidence_medium_score: 0.75
+mapping_confidence_low_score: 0.5
+mapping_confidence_other_score: 0.0
+data_quality_good_min_score: 0.85
+data_quality_caution_min_score: 0.65

@@ -1,0 +1,8 @@
+quality_rule_version: quality_v0.1
+positive_price_min_exclusive: 0.0
+reported_change_tolerance_pp: 0.011
+stale_quote_min_run_days: 7
+outlier_history_window_rows: 90
+outlier_min_valid_history: 30
+outlier_robust_scale_multiplier: 6.0
+outlier_zero_iqr_min_ratio: 1.5

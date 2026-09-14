@@ -1,0 +1,10 @@
+feature_contract_version: p3_alert_features_v0.1
+experiment_config_path: config/p3_alert_experiment.yaml
+lag_days: [1, 7, 14, 28, 56]
+rolling_windows_days: [7, 14, 28, 56, 90]
+lag_asof_max_gap_days: 3
+recent_direction_window_days: 14
+event_rate_window_days: 364
+parquet_compression: zstd
+output_directory: data/modeling/p3_alert_mart
+manifest_path: data/modeling/p3_alert_mart/manifest.json

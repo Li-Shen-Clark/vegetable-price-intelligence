@@ -1,0 +1,12 @@
+baseline_contract_version: p3_alert_baselines_v0.1
+experiment_config_path: config/p3_alert_experiment.yaml
+mart_directory: data/modeling/p3_alert_mart
+output_directory: artifacts/p3/baselines
+baselines: ['train_product_prevalence', 'series_event_rate_52w', 'volatility_momentum']
+heuristic_features: ['rolling_cv_28d', 'return_14d']
+heuristic_weights: [0.6, 0.4]
+standardized_feature_clip: 3.0
+probability_floor: 0.0001
+probability_ceiling: 0.9999
+best_baseline_metric: average_precision
+tie_break_order: ['train_product_prevalence', 'series_event_rate_52w', 'volatility_momentum']

@@ -1,0 +1,16 @@
+probability_contract_version: p2_probability_v0.1
+validation_mart_path: data/modeling/p2_forecast_mart/validation.parquet
+point_predictions_path: artifacts/p2/models/validation_candidate_predictions.parquet
+frozen_point_model_path: artifacts/p2/models/frozen_point_model.json
+output_directory: artifacts/p2/probability
+calibration_start: 2020-01-01
+calibration_end: 2020-08-01
+evaluation_start: 2020-09-01
+evaluation_end: 2020-12-01
+central_interval_alpha: 0.2
+minimum_group_calibration_rows: 100
+width_scale_candidates: [0.8, 0.9, 1.0, 1.1, 1.25]
+target_coverage_lower: 0.75
+target_coverage_upper: 0.85
+target_coverage_midpoint: 0.8
+

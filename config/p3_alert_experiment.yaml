@@ -1,0 +1,45 @@
+experiment_version: p3_alert_v0.1
+status: frozen
+scope_config_path: config/p2_scope.yaml
+city_fact_path: data/gold/fact_city_price.parquet
+coverage_tier_path: data/gold/coverage_tiers.parquet
+official_tiers: ['A']
+shadow_tiers: ['B']
+excluded_tiers: ['C']
+train_start: 2014-02-02
+train_end: 2019-12-31
+train_origin_start: 2015-02-02
+train_origin_end: 2019-12-16
+validation_start: 2020-01-01
+validation_end: 2020-12-31
+validation_origin_start: 2020-01-06
+validation_origin_end: 2020-12-14
+final_test_start: 2021-01-01
+final_test_end: 2022-06-22
+final_test_origin_start: 2021-01-04
+final_test_origin_end: 2022-06-06
+origin_frequency: W-MON
+target_horizon_days: 14
+minimum_future_observations: 10
+minimum_history_observations: 365
+origin_max_forward_fill_days: 1
+excluded_quality_flags: ['poor']
+absolute_spike_threshold: 0.20
+sensitivity_absolute_thresholds: [0.15, 0.20, 0.25]
+seasonal_quantile: 0.90
+sensitivity_seasonal_quantiles: [0.90, 0.95]
+event_deduplication_days: 21
+seasonal_min_city_product_month: 20
+seasonal_min_city_product_all: 52
+seasonal_min_product_month: 100
+minimum_eligible_rows_per_product_split: 100
+minimum_raw_spikes_for_diagnostic: 5
+fixed_false_positive_rate: 0.10
+final_test_false_positive_rate_tolerance: 0.12
+release_minimum_pr_auc_lift: 0.20
+release_minimum_recall: 0.30
+release_minimum_precision_prevalence_multiple: 2.0
+release_minimum_true_positives: 20
+research_minimum_recall: 0.20
+primary_metric: average_precision
+secondary_metrics: ['precision', 'recall', 'false_positive_rate', 'false_alert_share', 'brier_score', 'mean_lead_days', 'top_decile_spike_recall']

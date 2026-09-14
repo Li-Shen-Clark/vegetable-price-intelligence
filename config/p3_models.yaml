@@ -1,0 +1,19 @@
+model_contract_version: p3_alert_model_v0.1
+experiment_config_path: config/p3_alert_experiment.yaml
+mart_directory: data/modeling/p3_alert_mart
+baseline_scorecard_path: artifacts/p3/baselines/validation_scorecard.json
+output_directory: artifacts/p3/models
+numeric_features: ['return_1d', 'return_7d', 'return_14d', 'return_28d', 'return_56d', 'rolling_cv_7d', 'rolling_cv_14d', 'rolling_cv_28d', 'rolling_cv_56d', 'rolling_cv_90d', 'recent_up_day_share_14d', 'recent_down_day_share_14d', 'origin_vs_seasonal_log_ratio', 'historical_event_rate_series_52w', 'historical_event_rate_series_all', 'historical_event_rate_product_52w', 'historical_unchanged_share', 'origin_stale_quote_share', 'origin_outlier_share', 'origin_source_reliability_score', 'origin_fill_days']
+derived_features: ['origin_to_rolling_mean_7d_log', 'origin_to_rolling_mean_14d_log', 'origin_to_rolling_mean_28d_log', 'origin_to_rolling_mean_56d_log', 'origin_to_rolling_mean_90d_log', 'regional_median_return_7d', 'regional_median_return_14d', 'regional_median_return_28d', 'regional_median_cv_28d', 'regional_up_share_14d', 'city_minus_regional_return_14d']
+categorical_features: ['vegetable_id', 'origin_month']
+ridge_strengths: [0.0001, 0.001, 0.01]
+positive_class_weights: [1.0, 3.0]
+optimizer_learning_rate: 0.03
+optimizer_max_iterations: 160
+optimizer_tolerance: 0.0000001
+optimizer_patience: 15
+standardized_feature_clip: 8.0
+probability_floor: 0.0001
+probability_ceiling: 0.9999
+selection_metric: average_precision
+selection_tie_breakers: ['recall_at_fixed_fpr', 'brier_score', 'ridge_strength']

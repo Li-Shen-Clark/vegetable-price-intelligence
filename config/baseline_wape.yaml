@@ -1,0 +1,28 @@
+diagnostic_version: v0_diagnostic
+paths:
+  raw_dir: dataSource/rawData
+  mapping_file: dataSource/data_scraping/mofcom_data/market_Clean.csv
+  p2_scope_file: config/p2_scope.yaml
+scope:
+  products: ["Chinese_Cabbage", "Cabbage", "Cucumber", "Tomato", "Potato", "Green_Pepper", "White_Radish", "Celery", "Eggplant", "Onion"]
+columns:
+  date: 日期
+  raw_market: 时长
+  observed_price: 当日价格
+  mapping_market: market_Name
+  mapping_city: market_city
+filters:
+  minimum_price_exclusive: 0
+  minimum_city_valid_dates: 2000
+aggregation:
+  city_day_method: median
+missing_data:
+  origin_forward_fill_limit_days: 1
+  require_observed_target: true
+evaluation:
+  start_date: 2014-02-02
+  end_date: 2022-06-22
+  horizons_days: [7, 14, 28]
+metric:
+  name: WAPE
+  scale_percent: true

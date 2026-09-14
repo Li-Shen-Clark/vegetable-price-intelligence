@@ -1,0 +1,36 @@
+procurement_version: p4_procurement_v0.1
+status: frozen
+scenario_origin_date: 2022-05-01
+scope_config_path: config/p2_scope.yaml
+city_dimension_path: reference/dim_city.csv
+market_mapping_path: reference/market_mapping.csv
+source_city_coordinates_path: reference/source_city_coordinates.csv
+city_geo_path: reference/dim_city_geo.csv
+coverage_tier_path: data/gold/coverage_tiers.parquet
+city_fact_path: data/gold/fact_city_price.parquet
+forecast_mart_path: data/modeling/p2_forecast_mart/final_test.parquet
+p2_predictions_path: artifacts/p2/final/final_test_predictions.parquet
+p2_release_matrix_path: artifacts/p2/final/release_matrix.json
+procurement_mart_dir: data/modeling/p4_procurement_mart
+official_tier: A
+horizons_days: [7, 14, 28]
+default_horizon_days: 28
+default_target_city_id: city_008
+residual_quantile: 0.8
+minimum_residual_rows: 30
+residual_fallback_levels: ['product_horizon_route', 'product_horizon', 'product', 'horizon', 'global']
+default_quantity_kg: 10000.0
+default_transport_cost_per_kg_km: 0.0025
+default_loss_rate: 0.08
+default_max_distance_km: 1500.0
+default_road_factor: 1.25
+default_risk_aversion: 0.5
+default_minimum_reliability: 0.65
+reliability_gamma: 1.0
+maximum_reliability_multiplier: 1.5
+reliability_lookback_days: 28
+sensitivity_transport_costs: [0.0015, 0.0025, 0.0035, 0.0045]
+sensitivity_loss_rates: [0.03, 0.08, 0.15]
+sensitivity_risk_aversions: [0.0, 0.5, 1.0]
+geo_dimension_version: city_geo_v0.1
+mart_version: p4_procurement_mart_v0.1

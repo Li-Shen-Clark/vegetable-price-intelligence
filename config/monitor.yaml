@@ -1,0 +1,10 @@
+monitor_schema_version: monitor_mart_v0.1
+price_unit: CNY/kg
+display_granularity: month
+ranking_min_valid_days: 15
+ranking_eligible_tiers: ['A', 'B']
+default_vegetable_id: 170060
+default_city_id: city_113
+price_decimals: 3
+score_decimals: 4
+market_count_decimals: 1

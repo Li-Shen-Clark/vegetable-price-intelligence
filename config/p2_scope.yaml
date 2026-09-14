@@ -1,0 +1,45 @@
+scope_version: p2_mvp_v0.1
+status: frozen
+frozen_at: 2026-09-11
+candidate_source: dataSource/otherData/SDvegetableList.csv
+dimension_source: reference/dim_vegetable.csv
+selection_rule: preserve_old_project_first_10_after_data_gate
+data_gate:
+  required_unique_dates: 3063
+  minimum_observation_count: 300000
+  minimum_unique_raw_markets: 200
+  minimum_positive_price_rate: 0.9967
+scope_boundary:
+  p0_data_pipeline_products: 30
+  p2_core_model_products: 10
+products:
+  - vegetable_id: 170060
+    vegetable_code: Chinese_Cabbage
+    vegetable_name_zh: 大白菜
+  - vegetable_id: 170010
+    vegetable_code: Cabbage
+    vegetable_name_zh: 圆白菜
+  - vegetable_id: 170130
+    vegetable_code: Cucumber
+    vegetable_name_zh: 黄瓜
+  - vegetable_id: 170120
+    vegetable_code: Tomato
+    vegetable_name_zh: 西红柿
+  - vegetable_id: 170080
+    vegetable_code: Potato
+    vegetable_name_zh: 土豆
+  - vegetable_id: 170160
+    vegetable_code: Green_Pepper
+    vegetable_name_zh: 青椒
+  - vegetable_id: 170070
+    vegetable_code: White_Radish
+    vegetable_name_zh: 白萝卜
+  - vegetable_id: 170040
+    vegetable_code: Celery
+    vegetable_name_zh: 芹菜
+  - vegetable_id: 170140
+    vegetable_code: Eggplant
+    vegetable_name_zh: 茄子
+  - vegetable_id: 170090
+    vegetable_code: Onion
+    vegetable_name_zh: 洋葱

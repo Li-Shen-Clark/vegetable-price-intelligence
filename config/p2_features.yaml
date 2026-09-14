@@ -1,0 +1,14 @@
+feature_contract_version: p2_features_v0.1
+experiment_config_path: config/p2_experiment.yaml
+training_origin_start: 2016-01-01
+training_origin_end: 2019-12-01
+origin_frequency: MS
+lag_days: [1, 7, 14, 28, 56]
+rolling_windows_days: [7, 14, 28, 56, 90]
+lag_asof_max_gap_days: 3
+weekly_pattern_lookback_weeks: 4
+minimum_seasonal_observations: 5
+parquet_compression: zstd
+output_directory: data/modeling/p2_forecast_mart
+manifest_path: data/modeling/p2_forecast_mart/manifest.json
+

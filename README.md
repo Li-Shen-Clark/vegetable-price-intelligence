@@ -191,6 +191,7 @@ npm run build
 - `docs/p4_interview_guide.md`：P4 的求职讲解、演示路径和常见追问。
 - `docs/p4_delivery_checklist.md`：P4 最终测试、构建、HTTP 响应和证据清单。
 - `docs/economics_pricing_stage_gate.md`：P0–P4 回顾及 P5 以后每阶段必过的经济学/Pricing 七问门槛。
+- `docs/p5_readiness_checklist.md`：P5 开工结论、传播分析契约、经济学门槛和 GitHub/本地边界。
 - `docs/data_access_and_reproducibility.md`：作品集模式、完整数据恢复、Git 排除范围和公开许可门槛。
 - `docs/data_dictionary.md`：来源单位、所有核心表字段和业务含义。
 - `docs/data_quality_report.md`：七项平台指标、主要风险和下游使用边界。

@@ -21,7 +21,8 @@ class PricingNarrativeTests(unittest.TestCase):
             "02 · 价格预期",
             "03 · 风险信号",
             "04 · 采购情景",
-            "05 · Pricing Engine",
+            "05 · 冲击暴露",
+            "06 · Pricing Engine",
             "成本基准与毛利复核输入",
         ):
             self.assertIn(phrase, self.home)

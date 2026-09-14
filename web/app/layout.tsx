@@ -4,10 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Vegetable Price Intelligence | From Market Signals to Pricing Decisions',
   description:
-    'An economics-informed pricing intelligence system connecting historical market signals, auditable forecasts, risk alerts and risk-adjusted procurement costs.',
+    'An economics-informed pricing intelligence system connecting historical market signals, auditable forecasts, risk alerts, procurement costs and common-shock exposure.',
   openGraph: {
     title: 'Vegetable Price Intelligence | Market-to-Pricing Decisions',
-    description: 'Historical market signals, forecast governance, price-risk alerts and risk-adjusted cost inputs for pricing decisions.',
+    description: 'Historical market signals, forecast governance, price-risk alerts, risk-adjusted costs and common-shock exposure for pricing decisions.',
     type: 'website',
   },
 };

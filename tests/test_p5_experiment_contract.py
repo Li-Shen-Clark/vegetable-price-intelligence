@@ -18,9 +18,16 @@ class P5ExperimentContractTests(unittest.TestCase):
         cls.audit = json.loads(
             (ROOT / cls.config["audit_json_path"]).read_text(encoding="utf-8")
         )
+        cls.final = json.loads(
+            (ROOT / cls.config["final_artifact_dir"] / "release_decision.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     def test_01_config_freezes_scope_frequency_and_splits(self) -> None:
-        validate_config(self.config)
+        t0_config = dict(self.config)
+        t0_config["final_test_consumed"] = False
+        validate_config(t0_config)
         self.assertEqual(self.config["official_tiers"], ["A"])
         self.assertEqual(self.config["primary_frequency"], "3D")
         self.assertEqual(self.config["robustness_frequency"], "W-MON")
@@ -49,7 +56,9 @@ class P5ExperimentContractTests(unittest.TestCase):
         self.assertFalse(self.audit["method_flags"]["directional_models_fitted"])
         self.assertFalse(self.audit["method_flags"]["fdr_tests_run"])
         self.assertFalse(self.audit["method_flags"]["final_test_used_for_selection"])
-        self.assertFalse(self.config["final_test_consumed"])
+        self.assertTrue(self.config["final_test_consumed"])
+        self.assertTrue(self.final["final_test_first_and_only_evaluation"])
+        self.assertFalse(self.final["threshold_reselected_on_final_test"])
 
     def test_05_protocol_preserves_economic_and_causal_boundary(self) -> None:
         protocol = (ROOT / self.config["protocol_markdown_path"]).read_text(

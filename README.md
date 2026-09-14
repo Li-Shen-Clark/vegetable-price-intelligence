@@ -1,12 +1,12 @@
 # Vegetable Price Intelligence
 
-该项目把 2014–2022 年、117 个城市、30 种蔬菜的批发市场日度报价整理为可追溯的市场事实、城市日价格和覆盖 Tier，并在此基础上规划 Price Monitor、概率预测、风险预警、采购情景和价格冲击传播分析。
+该项目把 2014–2022 年、117 个城市、30 种蔬菜的批发市场日度报价整理为可追溯的市场事实、城市日价格和覆盖 Tier，并在此基础上实现 Price Monitor、概率预测、风险预警、采购情景，以及共同冲击与价格传播实验。
 
 它与现有 pricing engine 互补。pricing engine 面向当下的报价执行、规则和交易流程；本项目提供历史市场情报、数据质量、预测与风险证据。未来可以把这些输出作为 engine 的决策输入，但它本身不是实时定价执行系统。
 
 从 P5 开始，所有阶段必须先通过统一的 Economics & Pricing Stage Gate：明确决策用户、经济机制、单位与约束、比较基准或识别、不确定性、Pricing 工作流接口和不可声称内容。Gate 见 `docs/economics_pricing_stage_gate.md`，避免只增加模型而丢失经济问题。
 
-当前状态：**P0 数据层、P1 Historical Price Monitor、P2 概率预测、P3 价格风险预警与 P4 采购情景 v0.1 已完成本地验收**。P2 的正式结论是 `partial_release`；P3 为 `alert_release`；P4 为只支持历史参数化演示的 `scenario_release`。四个产品页面均未公开部署；P5–P6 尚未完成。
+当前状态：**P0–P5 v0.1 已完成本地验收**。P2 的正式结论是 `partial_release`；P3 为 `alert_release`；P4 为只支持历史参数化演示的 `scenario_release`；P5 的方向网络未通过 final-test 门槛，因此正式降级为 `common_shock_only`。五个产品页面均未公开部署；P6 作品集包装尚待后续完善。
 
 ## 已完成的数据资产
 
@@ -82,6 +82,19 @@ P4 把 P2 已发布的模型或基线点价格转换为可解释的采购候选�
 
 `/procurement` 支持目标城市、产品、跨度、采购量、运费、损耗、最大距离、风险偏好和最低可靠性的即时情景重算。输出是“值得询价的候选来源”，没有供应能力、库存、真实运费或成交承诺，不是采购订单或已实现节省。
 
+## P5 Common Shock & City Exposure
+
+P5 把“价格冲击传播”作为可被否决的预测实验，而不是直接生成相关网络：
+
+- 10 种核心蔬菜共有 342 条合格 Tier A 产品—城市序列；地理规则把完整配对事前压缩为 2,736 条候选边；
+- 3 日频模型先剔除训练期季节项与 leave-one-out 全国共同因子，再比较来源城市残差滞后相对“目标自身+共同因子”基线的额外预测价值；
+- 991 条候选可建模，训练期 174 条原始显著关系经产品内 BH-FDR 后剩 51 条，15 条通过 validation 增益门槛；
+- 15 条均通过训练分窗和 250 次 moving-block bootstrap；14 条周频可估计，其中 12 条同向；
+- 一次性 final test 只有 4/15 条 RMSE 改善为正、2/15 条达到至少 1%，正增益占比 26.67%，中位改善 -1.39%；
+- 方向网络因此不发布。训练期原始同时相关 FDR 边经共同因子调整减少 47.60%，产品保留共同冲击与城市历史暴露。
+
+`/propagation` 明确显示 `common_shock_only`，提供共同价格变化时间线、城市暴露排名和证据漏斗，不展示来源—目标边、传播中心或路径。该输出只用于扩大成本、供应与报价人工复核范围，不是因果结论、实时预警或自动调价信号。
+
 ## 快速开始
 
 ### 代码作品集模式（GitHub 不含数据）
@@ -152,7 +165,9 @@ python3 -m src.procurement.run_sensitivity
 python3 -m src.procurement.build_procurement_web_data
 ```
 
-本地运行 P1/P2/P3/P4 网站（Node.js ≥22.13）：
+P5 v0.1 的 final test 已消费，正式原版本禁止重跑。完整方法、前置顺序和新实验版本要求见 `docs/p5_runbook.md`；当前版本可安全重建 final 之前的数据层和本地降级页面，但不得删除正式 release artifact 后重开同一 final test。
+
+本地运行 P1–P5 网站（Node.js ≥22.13）：
 
 ```bash
 cd web
@@ -164,6 +179,7 @@ npm run dev
 - `http://localhost:3000/forecast`：Forecast Decision Lab
 - `http://localhost:3000/alerts`：Price Risk Alert Replay
 - `http://localhost:3000/procurement`：Procurement Scenario Engine
+- `http://localhost:3000/propagation`：Common Shock & City Exposure
 
 生产构建检查：
 
@@ -172,7 +188,7 @@ cd web
 npm run build
 ```
 
-当前完整本地数据工作区共 111 项测试：P4 完成时的 101 项 P0–P4 契约，加上 4 项严格无数据作品集契约和 6 项 Economics/Pricing 网站叙事契约。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定 FPR 阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性和历史边界；全新 clone 在恢复历史数据前只运行作品集验证、叙事契约和网站构建。
+当前完整本地数据工作区设计为 152 项测试：P5 之前的 111 项，加上 41 项 P5 契约、mart、基线、FDR、稳定性、一次性 final、浏览器数据和页面约束。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性、共同因子、多重检验、样本外增益和历史边界；全新 clone 在恢复历史数据前只运行作品集验证、叙事契约和网站构建。
 
 ## 关键文档
 
@@ -192,6 +208,11 @@ npm run build
 - `docs/p4_delivery_checklist.md`：P4 最终测试、构建、HTTP 响应和证据清单。
 - `docs/economics_pricing_stage_gate.md`：P0–P4 回顾及 P5 以后每阶段必过的经济学/Pricing 七问门槛。
 - `docs/p5_readiness_checklist.md`：P5 开工结论、传播分析契约、经济学门槛和 GitHub/本地边界。
+- `P5_执行计划.md`：P5 从实验契约到 `common_shock_only` 产品的冻结任务卡和发布门槛。
+- `docs/p5_model_card.md`：一次性 final test、网络 no-go 和共同冲击降级结论。
+- `docs/p5_runbook.md`：P5 顺序化复现、final 已消费约束、验收和排错。
+- `docs/p5_interview_guide.md`：面向 pricing / economics / data science 岗位的 P5 讲解路径。
+- `docs/p5_delivery_checklist.md`：P5 数据、统计、Economics/Pricing Gate、页面和 Git 边界清单。
 - `docs/data_access_and_reproducibility.md`：作品集模式、完整数据恢复、Git 排除范围和公开许可门槛。
 - `docs/data_dictionary.md`：来源单位、所有核心表字段和业务含义。
 - `docs/data_quality_report.md`：七项平台指标、主要风险和下游使用边界。
@@ -204,4 +225,4 @@ npm run build
 
 最新数据为 2022-06-22，不能用于 2026 年当前报价或采购执行。原始数据没有成交量、规格、包装、道路距离、运费和供应能力；采购模块只能先做明确标注假设的情景分析。Tier A 也只表示适合在本历史窗口内做正式回测，不表示实时可用。
 
-P1–P4 当前均为**本地完成、未公开部署**。P2 已证明 14/28 日部分切片具有样本外改善，但没有通过 8% 总体目标、7 日产品覆盖门槛和总体区间覆盖门槛。P3 独立通过全局离线门槛，但召回仍为 37.69%，且提醒中 78.69% 是误报。P4 对弱预测组保留基线，并用参数化运输、损耗与风险缓冲形成询价候选；它不能声称实时采购建议、真实节省或自动调价。下一阶段按 GUIDEBOOK 进入 P5 价格冲击传播分析。
+P1–P5 当前均为**本地完成、未公开部署**。P2 已证明 14/28 日部分切片具有样本外改善，但没有通过 8% 总体目标、7 日产品覆盖门槛和总体区间覆盖门槛。P3 独立通过全局离线门槛，但召回仍为 37.69%，且提醒中 78.69% 是误报。P4 对弱预测组保留基线，并用参数化运输、损耗与风险缓冲形成询价候选。P5 的方向关系未通过 final-test 网络门槛，因此只发布共同冲击与城市暴露。整个系统不能声称实时采购建议、真实节省、因果传播、最优零售价或自动调价。

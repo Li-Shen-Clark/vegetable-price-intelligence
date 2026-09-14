@@ -26,7 +26,7 @@ class P6CaseStudyPageTests(unittest.TestCase):
             "Pricing Intelligence layer",
             "8.68M",
             "117",
-            "152",
+            "177",
             "它不是实时 Pricing Engine",
             "数据截至 2022-06-22",
         ]:

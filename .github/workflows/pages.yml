@@ -1,0 +1,65 @@
+name: Deploy data-free portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "portfolio-site/**"
+      - "scripts/verify_pages_bundle.py"
+      - "tests/test_p7_pages_site.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out publishable source
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify the exact Pages payload
+        run: python3 scripts/verify_pages_bundle.py
+
+      - name: Run Pages content and safety contracts
+        run: >-
+          python3 -m unittest
+          tests.test_p6_case_study_page
+          tests.test_p7_pages_site
+          tests.test_portfolio_bundle
+          -v
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the verified static site only
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: portfolio-site
+
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

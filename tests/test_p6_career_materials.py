@@ -27,7 +27,7 @@ class P6CareerMaterialsTests(unittest.TestCase):
             "37.69% recall",
             "9.99% false-positive rate",
             "4/15 frozen edges",
-            "152 automated",
+            "177 automated",
         ]:
             self.assertIn(metric, self.career)
 

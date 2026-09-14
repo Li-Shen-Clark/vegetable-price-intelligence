@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vegetable Price Intelligence · Pricing Portfolio Case Study</title>
+    <meta
+      name="description"
+      content="An economics-informed portfolio case study turning wholesale market signals into governed forecasting, risk, procurement, and pricing decisions."
+    />
+    <meta name="author" content="Li-Shen-Clark" />
+    <meta name="theme-color" content="#173f35" />
+    <link rel="canonical" href="https://li-shen-clark.github.io/vegetable-price-intelligence/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Vegetable Price Intelligence" />
+    <meta property="og:description" content="From wholesale market signals to governed pricing decisions." />
+    <meta property="og:url" content="https://li-shen-clark.github.io/vegetable-price-intelligence/" />
+    <meta property="og:image" content="https://li-shen-clark.github.io/vegetable-price-intelligence/og.png" />
+    <meta property="og:image:width" content="1728" />
+    <meta property="og:image:height" content="910" />
+    <meta property="og:image:alt" content="Vegetable Price Intelligence portfolio cover" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vegetable Price Intelligence" />
+    <meta name="twitter:description" content="From wholesale market signals to governed pricing decisions." />
+    <meta name="twitter:image" content="https://li-shen-clark.github.io/vegetable-price-intelligence/og.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to case study</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#top" aria-label="Vegetable Price Intelligence home">
+          <span class="brand-mark" aria-hidden="true">VP</span>
+          <span>
+            <strong>Vegetable Price Intelligence</strong>
+            <small>Portfolio case study</small>
+          </span>
+        </a>
+        <nav aria-label="Case study navigation">
+          <a href="#decisions">Decisions</a>
+          <a href="#economics">Economics</a>
+          <a href="#build">Build</a>
+          <a href="#boundaries">Boundaries</a>
+        </nav>
+        <a class="text-link" href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">Pricing · Economics · Data Science</p>
+          <h1>From wholesale market signals to governed pricing decisions.</h1>
+          <p class="lede">
+            I designed and built an end-to-end Pricing Intelligence system from nine years of Chinese wholesale vegetable prices. It measures market position, forms price expectations, screens cost risk, and evaluates sourcing scenarios—while refusing to release claims that fail their evidence gate.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#decisions">Review the decision evidence</a>
+            <a class="button secondary" href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence">Inspect the source and methods <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="trust-row" aria-label="Portfolio boundaries">
+            <span>Data-free public view</span>
+            <span>Historical cutoff: 2022-06-22</span>
+            <span>No automated pricing</span>
+          </div>
+        </div>
+
+        <aside class="role-card" aria-labelledby="role-title">
+          <p class="card-kicker">My role</p>
+          <h2 id="role-title">End-to-end owner</h2>
+          <p>I framed the economics, engineered the analytical marts, built and evaluated the models, defined release gates, translated outputs into Pricing workflows, and shipped the tested product interface.</p>
+          <dl>
+            <div><dt>Problem</dt><dd>Upstream cost intelligence</dd></div>
+            <div><dt>Scope</dt><dd>P0–P7, design through delivery</dd></div>
+            <div><dt>Product stance</dt><dd>Decision support, not execution</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="metric-band" aria-label="Project scale">
+        <div class="shell metrics">
+          <article><strong>8.68M</strong><span>market price records</span><small>auditable raw-to-gold lineage</small></article>
+          <article><strong>117</strong><span>cities</span><small>city-day two-level medians</small></article>
+          <article><strong>30</strong><span>vegetables</span><small>10 in formal modeling scope</small></article>
+          <article><strong>177</strong><span>automated tests</span><small>data, leakage, metrics, release</small></article>
+        </div>
+      </section>
+
+      <section class="section shell" id="decisions">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Decision chain</p>
+            <h2>Every stage earns a product state.</h2>
+          </div>
+          <p>The project starts with the user decision and available information set, then chooses the simplest method that can clear a predeclared evidence bar.</p>
+        </div>
+
+        <div class="stage-grid">
+          <article class="stage"><span class="stage-id">P0</span><div><p class="stage-state">Data release</p><h3>Can these prices be compared?</h3><p>Versioned market mapping, quality flags, coverage tiers, and two-level aggregation create auditable market and city facts.</p></div></article>
+          <article class="stage"><span class="stage-id">P1</span><div><p class="stage-state">Historical</p><h3>Where is price relative to peers and season?</h3><p>Trends, rankings, dispersion, seasonality, and source reliability support historical market benchmarking.</p></div></article>
+          <article class="stage emphasis"><span class="stage-id">P2</span><div><p class="stage-state">Partial release</p><h3>Does forecasting beat a simple rule?</h3><p>Rolling-origin 7/14/28-day tests improved overall WAPE by 6.30%; weak product-horizon slices retain their frozen baseline.</p></div></article>
+          <article class="stage"><span class="stage-id">P3</span><div><p class="stage-state">Alert release</p><h3>Is a price increase worth reviewing?</h3><p>A validation-frozen threshold achieved 37.69% recall at 9.99% FPR. Alerts open a review queue; they never change prices.</p></div></article>
+          <article class="stage"><span class="stage-id">P4</span><div><p class="stage-state">Scenario release</p><h3>Does a low quote survive economic friction?</h3><p>Risk-adjusted landed cost and 36 transport, loss, and risk scenarios identify cities worth requesting a quote from.</p></div></article>
+          <article class="stage warning"><span class="stage-id">P5</span><div><p class="stage-state">Network no-go</p><h3>Does a lead-lag relationship replicate?</h3><p>Only 4 of 15 frozen edges improved final-test RMSE. No directional network was published; the product fell back to common-shock exposure.</p></div></article>
+        </div>
+      </section>
+
+      <section class="section section-tinted" id="governance">
+        <div class="shell governance-grid">
+          <div>
+            <p class="eyebrow">Evidence before sophistication</p>
+            <h2>The strongest result is knowing when not to release.</h2>
+            <p class="section-copy">Statistical significance, an attractive chart, or average improvement does not automatically become a product feature. Baselines, false-action cost, uncertainty, and replication determine the release state.</p>
+            <div class="funnel" aria-label="P5 evidence funnel">
+              <span><strong>15</strong> validation and stability edges</span>
+              <span aria-hidden="true">→</span>
+              <span><strong>4</strong> positive final-test gains</span>
+              <span aria-hidden="true">→</span>
+              <span><strong>0</strong> published directional edges</span>
+            </div>
+          </div>
+          <div class="governance-list">
+            <article><strong>Strong counterfactuals</strong><p>Last price, weekly pattern, seasonality, and target-history baselines remain visible when the advanced model loses.</p></article>
+            <article><strong>Asymmetric error cost</strong><p>P3 freezes its action threshold under a 10% false-positive-rate budget and discloses precision of 21.31%.</p></article>
+            <article><strong>Sensitivity over point estimates</strong><p>P4 separates the cheapest modeled option from a source that remains stable across 36 parameter combinations.</p></article>
+            <article><strong>Competing explanations</strong><p>P5 removes common movement before testing city lead-lag value; contemporaneous FDR relationships fall 47.60%.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell" id="economics">
+        <div class="section-heading narrow">
+          <div><p class="eyebrow">Economics in the implementation</p><h2>Economic reasoning changes the product behavior.</h2></div>
+          <p>This is not an economics label added after modeling. The mechanisms determine aggregation, baselines, constraints, uncertainty, and which actions the interface permits.</p>
+        </div>
+        <div class="concept-grid">
+          <article><span>01</span><h3>Price dispersion &amp; measurement</h3><p>Market composition and sparse observations can imitate economic differences, so quality and coverage enter before comparison.</p></article>
+          <article><span>02</span><h3>Expectations &amp; uncertainty</h3><p>Forecasts are evaluated against what was knowable at the time; points, intervals, and baselines receive separate release decisions.</p></article>
+          <article><span>03</span><h3>Transaction costs &amp; risk</h3><p>A lower observed price is actionable only after distance, transport, loss, reliability, and uncertainty are applied consistently.</p></article>
+          <article><span>04</span><h3>Common shocks &amp; identification</h3><p>National supply and seasonal movement compete with propagation stories; without causal identification, the system makes no causal claim.</p></article>
+        </div>
+      </section>
+
+      <section class="section shell handoff" aria-labelledby="handoff-title">
+        <div>
+          <p class="eyebrow">Pricing workflow interface</p>
+          <h2 id="handoff-title">Complementary to a Pricing Engine—not a competing engine.</h2>
+          <p class="section-copy">This project supplies governed evidence upstream. A production Pricing Engine still owns the executable decision.</p>
+        </div>
+        <div class="handoff-flow">
+          <article>
+            <p class="flow-label">Pricing Intelligence supplies</p>
+            <ul>
+              <li>market benchmark and reliability</li>
+              <li>model, baseline, or no-go status</li>
+              <li>price-risk review trigger</li>
+              <li>risk-adjusted cost scenario</li>
+              <li>common-shock exposure</li>
+            </ul>
+          </article>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <article class="engine-card">
+            <p class="flow-label">Pricing Engine combines</p>
+            <ul>
+              <li>current cost and inventory</li>
+              <li>customer and contract terms</li>
+              <li>demand response and margin floor</li>
+              <li>commercial rules and approval</li>
+            </ul>
+            <p class="engine-output">Then—and only then—produce an executable price.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="build">
+        <div class="shell build-grid">
+          <div>
+            <p class="eyebrow">What I built</p>
+            <h2>Research discipline translated into product engineering.</h2>
+            <p>One repository connects data lineage, temporal evaluation, model governance, decision interfaces, six web routes, career-ready documentation, and code-only continuous integration.</p>
+          </div>
+          <div class="stack-groups">
+            <article><h3>Data &amp; analytics</h3><p>Python · pandas · NumPy · PyArrow · SciPy · Parquet · versioned marts</p></article>
+            <article><h3>Model evaluation</h3><p>Rolling-origin backtests · conformal intervals · logistic risk ranking · BH-FDR · block bootstrap · sealed final tests</p></article>
+            <article><h3>Product &amp; quality</h3><p>React · Vinext · TypeScript · Recharts · responsive UI · 177 tests · lint · GitHub Actions</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell" id="boundaries">
+        <div class="boundary-grid">
+          <div>
+            <p class="eyebrow">Production boundary</p>
+            <h2>What this evidence does—and does not—support.</h2>
+          </div>
+          <div class="boundary-columns">
+            <article class="supports"><h3>Supported</h3><ul><li>Historical market benchmarking</li><li>Qualified out-of-sample forecast slices</li><li>Manual risk-review prioritization</li><li>Parameter-dependent sourcing inquiry</li><li>Common-shock exposure analysis</li></ul></article>
+            <article class="not-supported"><h3>Not supported</h3><ul><li>Current or real-time recommendations</li><li>Demand elasticity or willingness to pay</li><li>Optimal retail price or realized savings</li><li>Supplier capacity or executable orders</li><li>Causal price propagation</li></ul></article>
+          </div>
+        </div>
+        <aside class="production-note">
+          <strong>To reach production:</strong>
+          <span>refreshable sources, data-freshness monitoring, specifications, volumes, inventory, customer and contract terms, actual freight and loss, supplier capacity, realized orders, and controlled outcome measurement.</span>
+        </aside>
+      </section>
+
+      <section class="section shell evidence-links" aria-labelledby="evidence-title">
+        <div><p class="eyebrow">Audit the work</p><h2 id="evidence-title">Follow every public claim back to its evidence.</h2></div>
+        <div class="link-grid">
+          <a href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence/blob/main/PORTFOLIO_CASE_STUDY.md"><strong>Full case study</strong><span>Decision, result, and production boundary <b aria-hidden="true">↗</b></span></a>
+          <a href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence/blob/main/docs/p6_evidence_matrix.md"><strong>Evidence matrix</strong><span>Baseline, release state, allowed claim <b aria-hidden="true">↗</b></span></a>
+          <a href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence/blob/main/docs/pricing_integration_contract.md"><strong>Pricing contract</strong><span>How evidence enters review without executing price <b aria-hidden="true">↗</b></span></a>
+          <a href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence/blob/main/docs/p6_delivery_checklist.md"><strong>Verification record</strong><span>Tests, build, data boundary, final gate <b aria-hidden="true">↗</b></span></a>
+        </div>
+      </section>
+
+      <section class="section shell chinese-summary" lang="zh-CN">
+        <p class="eyebrow">中文摘要</p>
+        <h2>这是 Pricing Engine 的上游情报层，而不是另一套自动定价引擎。</h2>
+        <p>项目把批发市场数据转化为历史基准、价格预期、风险复核、采购成本情景和共同冲击证据。最终价格仍由现有 Pricing Engine 结合库存、客户、合同、利润和审批规则决定。数据截至 2022-06-22，所有公开页面均不包含原始或派生数据。</p>
+      </section>
+
+      <section class="closing">
+        <div class="shell closing-inner">
+          <div><p class="eyebrow">Portfolio takeaway</p><h2>I build models that know when to become products—and when not to.</h2></div>
+          <a class="button light" href="https://github.com/Li-Shen-Clark/vegetable-price-intelligence">Explore the repository <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell"><span>Vegetable Price Intelligence · Historical portfolio</span><span>Source period: 2014-02-02—2022-06-22 · Data and execution logs are not published.</span></div>
+    </footer>
+  </body>
+</html>

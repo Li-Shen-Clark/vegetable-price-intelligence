@@ -141,10 +141,10 @@ def assert_public_text_is_portable() -> None:
         raise AssertionError(f"absolute local paths in public-facing files: {violations}")
 
 
-def assert_private_paths_untracked(paths: list[str]) -> None:
+def assert_private_paths_absent(paths: list[str]) -> None:
     leaked = sorted(set(PRIVATE_LOCAL_PATHS).intersection(paths))
     if leaked:
-        raise AssertionError(f"private local files in current Git candidates: {leaked}")
+        raise AssertionError(f"private local files in Git paths: {leaked}")
 
 
 def git_candidate_paths() -> list[str]:
@@ -226,9 +226,10 @@ def verify() -> dict:
     assert_ignore_contract()
     assert_public_text_is_portable()
     candidates = git_candidate_paths()
-    assert_private_paths_untracked(candidates)
+    assert_private_paths_absent(candidates)
     candidate_count, candidate_bytes = assert_git_candidate_contract(candidates)
     history_paths = git_publishable_history_paths()
+    assert_private_paths_absent(history_paths)
     assert_git_candidate_contract(history_paths)
     return {
         "status": "pass",

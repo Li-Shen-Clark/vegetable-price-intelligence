@@ -4,7 +4,7 @@ import unittest
 
 from scripts.verify_portfolio_bundle import (
     assert_ignore_contract,
-    assert_private_paths_untracked,
+    assert_private_paths_absent,
     assert_public_text_is_portable,
     assert_required_paths,
     assert_git_candidate_contract,
@@ -26,11 +26,12 @@ class PortfolioBundleTests(unittest.TestCase):
     def test_04_git_candidates_contain_no_data(self) -> None:
         paths = git_candidate_paths()
         self.assertTrue(paths)
-        assert_private_paths_untracked(paths)
+        assert_private_paths_absent(paths)
         count, _ = assert_git_candidate_contract(paths)
         self.assertEqual(count, len(paths))
         history_paths = git_publishable_history_paths()
         self.assertTrue(history_paths)
+        assert_private_paths_absent(history_paths)
         assert_git_candidate_contract(history_paths)
 
 

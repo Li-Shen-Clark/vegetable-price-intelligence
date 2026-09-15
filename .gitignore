@@ -55,6 +55,7 @@ unmatched_markets.csv
 /GUIDEBOOK.md
 /GUIDEBOOK_可实施性评审.md
 /GUIDEBOOK_撤回执行计划.md
+.private-backups/
 
 # Temporary files
 *.tmp

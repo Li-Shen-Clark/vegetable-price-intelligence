@@ -16,7 +16,6 @@ REQUIRED_PATHS = (
     ".github/workflows/portfolio-ci.yml",
     ".github/workflows/pages.yml",
     "README.md",
-    "GUIDEBOOK.md",
     "PORTFOLIO_CASE_STUDY.md",
     "P7_执行计划.md",
     "docs/economics_pricing_stage_gate.md",
@@ -61,6 +60,9 @@ REQUIRED_IGNORE_RULES = (
     "*.parquet",
     "*.csv",
     "*执行日志.md",
+    "/GUIDEBOOK.md",
+    "/GUIDEBOOK_可实施性评审.md",
+    "/GUIDEBOOK_撤回执行计划.md",
     "web/node_modules/",
     "web/.next/",
     "web/.vinext/",
@@ -85,7 +87,6 @@ FORBIDDEN_PREFIXES = (
 
 PUBLIC_TEXT_PATHS = (
     "README.md",
-    "GUIDEBOOK.md",
     "PORTFOLIO_CASE_STUDY.md",
     "docs/economics_pricing_stage_gate.md",
     "docs/p6_evidence_matrix.md",
@@ -102,6 +103,12 @@ PUBLIC_TEXT_PATHS = (
     "web/app/procurement/page.tsx",
     "web/app/propagation/page.tsx",
     "web/app/case-study/page.tsx",
+)
+
+PRIVATE_LOCAL_PATHS = (
+    "GUIDEBOOK.md",
+    "GUIDEBOOK_可实施性评审.md",
+    "GUIDEBOOK_撤回执行计划.md",
 )
 
 
@@ -131,6 +138,12 @@ def assert_public_text_is_portable() -> None:
             violations.append(relative)
     if violations:
         raise AssertionError(f"absolute local paths in public-facing files: {violations}")
+
+
+def assert_private_paths_untracked(paths: list[str]) -> None:
+    leaked = sorted(set(PRIVATE_LOCAL_PATHS).intersection(paths))
+    if leaked:
+        raise AssertionError(f"private local files in current Git candidates: {leaked}")
 
 
 def git_candidate_paths() -> list[str]:
@@ -212,6 +225,7 @@ def verify() -> dict:
     assert_ignore_contract()
     assert_public_text_is_portable()
     candidates = git_candidate_paths()
+    assert_private_paths_untracked(candidates)
     candidate_count, candidate_bytes = assert_git_candidate_contract(candidates)
     history_paths = git_publishable_history_paths()
     assert_git_candidate_contract(history_paths)

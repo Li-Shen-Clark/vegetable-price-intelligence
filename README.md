@@ -197,7 +197,6 @@ npm run build
 
 ## 关键文档
 
-- `GUIDEBOOK.md`：产品定位、模块规格、评估方法和路线图。
 - `PORTFOLIO_CASE_STUDY.md`：招聘方可在数分钟内阅读的项目结论、证据与边界。
 - `P0_执行计划.md`：每一步执行前锁定的范围、口径和验收标准。
 - `P1_执行计划.md`：Historical Price Monitor 的范围、页面、数据服务和逐步验收计划。

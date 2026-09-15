@@ -30,7 +30,7 @@
 - [x] `/alerts` 历史回放页。
 - [x] `/`、`/forecast` 与 `/alerts` 跨页导航。
 - [x] 10 个按产品加载的数据文件、metadata 和 manifest。
-- [x] README、GUIDEBOOK、模型卡、runbook、执行计划和追加式日志更新。
+- [x] README、公开案例、模型卡、runbook、执行计划和追加式日志更新。
 - [x] 页面常驻历史截止日、误报边界与人工复核提示。
 
 ## 验证

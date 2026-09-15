@@ -63,6 +63,7 @@ REQUIRED_IGNORE_RULES = (
     "/GUIDEBOOK.md",
     "/GUIDEBOOK_可实施性评审.md",
     "/GUIDEBOOK_撤回执行计划.md",
+    ".private-backups/",
     "web/node_modules/",
     "web/.next/",
     "web/.vinext/",

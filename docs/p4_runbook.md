@@ -105,7 +105,7 @@ curl -I http://localhost:3000/data/procurement/metadata.json
 curl -I http://localhost:3000/data/procurement/products/170010.json
 ```
 
-全部应返回 HTTP 200。全项目 lint 含 P4 之前页面和通用组件的存量问题；P4 验收以采购页定向 lint 和生产构建为准，存量问题不得误记为 P4 新回归。
+全部应返回 HTTP 200。P4 交付时，全项目 lint 曾包含更早页面和通用组件的存量问题，因此当时以采购页定向 lint 和生产构建为阶段验收。该技术债已在 P6 清零；当前主分支的完整 `npm run lint` 是阻断门禁，必须以退出码 0 通过。
 
 ## 5. 核心结果核对
 

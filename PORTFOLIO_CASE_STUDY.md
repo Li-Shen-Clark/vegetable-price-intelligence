@@ -33,7 +33,7 @@ I therefore released zero directional edges and shipped `common_shock_only`. The
 |---|---|---|---|
 | P0 · Data | Can markets and city prices be compared reliably? | Versioned market mapping, two-level medians, quality flags and coverage tiers | 8.68M market facts; 7.36M city-day facts; auditable P0 release |
 | P1 · Monitor | Where is a city price relative to peers and its own season? | Historical trends, rankings, IQR, seasonality and source reliability | Historical monitor for 30 products; descriptive, not causal |
-| P2 · Forecast | Does a model improve on what was knowable at the time? | Rolling-origin 7/14/28-day backtests, strong naïve baselines and conformal intervals | `partial_release`; overall WAPE improvement 6.30%, only qualified slices released |
+| P2 · Forecast | Does a model improve on what was knowable at the time? | Rolling-origin 7/14/28-day backtests, with 14/28 days as the MVP decision focus and 7 days retained as a stress test | `partial_release`; overall WAPE improvement 6.30%, only qualified slices released |
 | P3 · Alert | Can large increases be found under a fixed false-alert budget? | Independent event label, logistic model, validation-frozen threshold | `alert_release`; recall 37.69% at FPR 9.99%, for human review only |
 | P4 · Procurement | Does a low market price survive transport, loss and uncertainty? | Risk-adjusted landed-cost scenario and 36-parameter sensitivity grid | `scenario_release`; candidates for inquiry, not suppliers or realized savings |
 | P5 · Shock | Does a source city add reproducible information beyond common movement? | Leave-one-out factor, geographic candidates, FDR, bootstrap and one-time final test | Direction network `no-go`; product falls back to `common_shock_only` |

@@ -61,12 +61,13 @@ The strongest methodological result is P5’s no-go. Common-factor adjustment re
 
 **Economic problem.** A pricing team needs to know whether a forecast beats a credible “do nothing” rule under the information available at the decision date.
 
-**Design.** Ten products and 366 Tier A product-city series were evaluated at 7/14/28-day horizons. Model selection used validation only; final test was consumed once. Last valid price, weekly pattern and historical seasonal median were registered as baselines.
+**Design.** Ten products and 366 Tier A product-city series were evaluated at 7/14/28-day horizons. The formal MVP decision focus is 14/28 days; 7 days remains a stress test with an explicit baseline route. Model selection used validation only; final test was consumed once. Last valid price, weekly pattern and historical seasonal median were registered as baselines.
 
 **Result.**
 
 - final-test model WAPE: 17.54%; best baseline: 18.72%; relative improvement: 6.30%;
 - 80% interval coverage: 70.91%, below the desired calibration range;
+- by horizon, 7 days fell back for 8/10 products and averaged −4.24% relative improvement, while 14 and 28 days released model points for 9/10 products and averaged +4.42% and +11.33%;
 - release matrix: 1 `model_target`, 3 `model_minimum`, 16 `point_only_model`, 10 `baseline_fallback` groups.
 
 **Decision outcome.** `partial_release`. Qualified slices expose model evidence; weak slices retain a named baseline. The product never relabels a current-price baseline as a model forecast.

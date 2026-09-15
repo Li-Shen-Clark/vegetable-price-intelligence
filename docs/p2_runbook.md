@@ -170,9 +170,9 @@ forecast Web JSON → /forecast
 
 受限 macOS 环境可能无法读取 CPU cache 信息。只要程序退出码为 0、manifest 哈希和自动测试通过，该警告不影响数据断言。
 
-### 全站 lint 报脚手架错误
+### 历史阶段的全站 lint 问题（已清零）
 
-`components/ui/*` 和既有 P1 页面存在脚手架规则告警。P2 forecast 页面可以单独 lint；TypeScript 与生产构建是当前完整站点的阻断检查。不要为清理 P2 以外的生成组件而扩大改动范围。
+P2 交付时，`components/ui/*` 和既有 P1 页面曾有脚手架规则告警，因此当时以 forecast 页面定向 lint、TypeScript 和生产构建作为本阶段阻断检查。该技术债已在 P6 全站质量收口时修复；当前主分支必须以完整 `npm run lint` 退出码 0 作为公开仓库门禁，不能再引用本段历史说明来豁免失败。
 
 ### 为什么没有给所有预测显示区间
 
@@ -181,4 +181,3 @@ forecast Web JSON → /forecast
 ### 为什么不能重新调宽区间
 
 因为 final test 已经打开。根据测试结果调整再对同一测试集报告，会把测试集变成验证集并夸大可信度。
-

@@ -14,12 +14,21 @@ class P6CIContractTests(unittest.TestCase):
     def test_01_workflow_runs_only_publishable_code_checks(self):
         for phrase in [
             "code-only-contracts",
+            "actions/checkout@v7",
+            "actions/setup-python@v7",
+            "actions/setup-node@v7",
             "tests.test_portfolio_bundle",
             "tests.test_p6_ci_contract",
             "npm run lint",
             "npm run build",
         ]:
             self.assertIn(phrase, self.workflow)
+        for phrase in [
+            "actions/checkout@v4",
+            "actions/setup-python@v5",
+            "actions/setup-node@v4",
+        ]:
+            self.assertNotIn(phrase, self.workflow)
 
     def test_02_workflow_has_read_only_repository_permissions(self):
         self.assertIn("permissions:\n  contents: read", self.workflow)

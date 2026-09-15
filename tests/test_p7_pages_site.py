@@ -49,6 +49,8 @@ class P7PagesSiteTests(unittest.TestCase):
             "without common-shock control and product-level multiple-testing discipline",
             "common_shock_only",
             "Forecast release by horizon",
+            "The 14/28-day horizons are the formal MVP decision focus; 7 days remains a stress test.",
+            "7 days averaged −4.24% relative WAPE improvement",
             "Alert stability: validation → final",
             "42.15 → 37.69%",
             "21.28 → 22.04%",
@@ -96,14 +98,27 @@ class P7PagesSiteTests(unittest.TestCase):
             "contents: read",
             "pages: write",
             "id-token: write",
-            "actions/configure-pages@v5",
-            "actions/upload-pages-artifact@v4",
-            "actions/deploy-pages@v4",
+            "actions/checkout@v7",
+            "actions/setup-python@v7",
+            "actions/configure-pages@v6",
+            "actions/upload-pages-artifact@v5",
+            "actions/deploy-pages@v5",
             "path: portfolio-site",
             "python3 scripts/verify_pages_bundle.py",
         ]:
             self.assertIn(phrase, self.workflow)
-        for phrase in ["secrets.", "web/public/data", "artifacts/", ".csv", ".parquet"]:
+        for phrase in [
+            "secrets.",
+            "web/public/data",
+            "artifacts/",
+            ".csv",
+            ".parquet",
+            "actions/checkout@v6",
+            "actions/setup-python@v5",
+            "actions/configure-pages@v5",
+            "actions/upload-pages-artifact@v4",
+            "actions/deploy-pages@v4",
+        ]:
             self.assertNotIn(phrase, self.workflow)
 
     def test_08_pages_bundle_verifier_passes(self):

@@ -108,7 +108,7 @@
               <span class="chart-number">01</span>
               <div><p class="chart-kicker">P2 · Forecast</p><h3>Forecast release by horizon</h3></div>
             </figcaption>
-            <p class="chart-intro">Each bar contains ten frozen product–horizon decisions. A model is shown only where it earned release.</p>
+            <p class="chart-intro">Each bar contains ten frozen product–horizon decisions. The 14/28-day horizons are the formal MVP decision focus; 7 days remains a stress test.</p>
             <div class="release-chart" role="img" aria-label="At 7 days, 8 products use baseline fallback and 2 use point models. At 14 days, 1 uses baseline fallback, 8 use point models, and 1 meets minimum model release. At 28 days, 1 uses baseline fallback, 6 use point models, 2 meet minimum release, and 1 meets target release.">
               <div class="release-row">
                 <strong>7d</strong>
@@ -129,7 +129,7 @@
               <span><i class="minimum"></i>Minimum + interval</span>
               <span><i class="target"></i>Target + interval</span>
             </div>
-            <p class="chart-note"><strong>Reading:</strong> 7-day decisions remain baseline-heavy; longer horizons support more model use without hiding fallback slices.</p>
+            <p class="chart-note"><strong>Reading:</strong> 7 days averaged −4.24% relative WAPE improvement and fell back for 8/10 products. At 14 and 28 days, 9/10 products released model points, supporting the 14/28-day product focus without hiding the failed short-horizon test.</p>
           </figure>
 
           <figure class="chart-card">
@@ -248,7 +248,7 @@
         <div class="stage-grid">
           <article class="stage"><span class="stage-id">P0</span><div><p class="stage-state">Data release</p><h3>Can these prices be compared?</h3><p>Versioned market mapping, quality flags, coverage tiers, and two-level aggregation create auditable market and city facts.</p></div></article>
           <article class="stage"><span class="stage-id">P1</span><div><p class="stage-state">Historical</p><h3>Where is price relative to peers and season?</h3><p>Trends, rankings, dispersion, seasonality, and source reliability support historical market benchmarking.</p></div></article>
-          <article class="stage emphasis"><span class="stage-id">P2</span><div><p class="stage-state">Partial release</p><h3>Does forecasting beat a simple rule?</h3><p>Rolling-origin 7/14/28-day tests improved overall WAPE by 6.30%; weak product-horizon slices retain their frozen baseline.</p></div></article>
+          <article class="stage emphasis"><span class="stage-id">P2</span><div><p class="stage-state">Partial release</p><h3>Does forecasting beat a simple rule?</h3><p>Rolling-origin 7/14/28-day tests improved overall WAPE by 6.30%. The product focuses on 14/28 days; 7 days remains a disclosed stress test with frozen fallbacks.</p></div></article>
           <article class="stage"><span class="stage-id">P3</span><div><p class="stage-state">Alert release</p><h3>Is a price increase worth reviewing?</h3><p>A validation-frozen threshold achieved 37.69% recall at 9.99% FPR. Alerts open a review queue; they never change prices.</p></div></article>
           <article class="stage"><span class="stage-id">P4</span><div><p class="stage-state">Scenario release</p><h3>Does a low quote survive economic friction?</h3><p>Risk-adjusted landed cost and 36 transport, loss, and risk scenarios identify cities worth requesting a quote from.</p></div></article>
           <article class="stage warning"><span class="stage-id">P5</span><div><p class="stage-state">Network no-go</p><h3>Can an apparent network survive confound and replication tests?</h3><p>Common-factor control removed 47.60% of contemporaneous FDR relationships; sealed final testing then rejected the directional claim. Withholding the network is the result.</p></div></article>

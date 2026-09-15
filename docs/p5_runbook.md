@@ -84,7 +84,7 @@ npm run build
 npm run dev
 ```
 
-本地检查 `/propagation`、`/data/propagation/metadata.json` 与一个产品 JSON 都应返回 HTTP 200。全站 lint 仍含共享 UI 和旧页面的存量规则问题；P5 以新增页面定向 lint、全站生产构建和全量 Python 契约为验收证据。
+本地检查 `/propagation`、`/data/propagation/metadata.json` 与一个产品 JSON 都应返回 HTTP 200。P5 交付时曾存在共享 UI 和旧页面的 lint 技术债，因此当时以新增页面定向 lint、全站生产构建和全量 Python 契约作为阶段验收；该技术债已在 P6 清零，当前主分支要求完整 `npm run lint` 退出码为 0。
 
 ## 6. 常见失败
 

@@ -24,8 +24,12 @@ class P7PagesSiteTests(unittest.TestCase):
             "117",
             "30",
             "177",
+            "Built by",
+            "Li Shen",
+            "Applied Economist · Pricing &amp; Decision Science",
         ]:
             self.assertIn(phrase, self.index)
+        self.assertIn('<meta name="author" content="Li Shen"', self.index)
 
     def test_02_formal_product_states_and_failure_remain_visible(self):
         for phrase in [

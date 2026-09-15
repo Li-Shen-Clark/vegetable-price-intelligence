@@ -76,7 +76,7 @@
 
 每个新阶段按以下顺序执行：
 
-1. 在阶段执行计划中先写一张 `Economics & Pricing Hypothesis Card`，逐项回答 G1–G7；
+1. 在本地阶段计划中先写一张 `Economics & Pricing Hypothesis Card`，逐项回答 G1–G7，并把最终结论提炼到公开路线图或模型卡；
 2. 为经济口径建立至少一个可复算测试，例如单位恒等式、基线比较、候选约束、无前视或共同冲击控制；
 3. 页面首屏写清决策用途，方法区写清经济机制，边界区写清不可声称内容；
 4. 在执行日志中记录每项 Gate 的实际证据和 `pass/conditional_pass/fail`；

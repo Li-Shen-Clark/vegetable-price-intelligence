@@ -57,6 +57,12 @@ unmatched_markets.csv
 /GUIDEBOOK_撤回执行计划.md
 .private-backups/
 
+# Detailed internal stage planning stays local; publish the curated roadmap instead
+/P[0-7]_执行计划.md
+/P5_前置执行计划.md
+/P7_状态评审.md
+/ROADMAP_迁移执行计划.md
+
 # Temporary files
 *.tmp
 *.log

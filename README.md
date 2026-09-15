@@ -1,6 +1,6 @@
 # Vegetable Price Intelligence
 
-**作品集入口：** [Live Portfolio](https://li-shen-clark.github.io/vegetable-price-intelligence/) · [Portfolio Case Study](PORTFOLIO_CASE_STUDY.md) · 本地网站 `/case-study`
+**作品集入口：** [Live Portfolio](https://li-shen-clark.github.io/vegetable-price-intelligence/) · [Portfolio Case Study](PORTFOLIO_CASE_STUDY.md) · [Project Roadmap](PROJECT_ROADMAP.md) · 本地网站 `/case-study`
 
 该项目把 2014–2022 年、117 个城市、30 种蔬菜的批发市场日度报价整理为可追溯的市场事实、城市日价格和覆盖 Tier，并在此基础上实现 Price Monitor、概率预测、风险预警、采购情景，以及共同冲击与价格传播实验。
 
@@ -198,33 +198,26 @@ npm run build
 ## 关键文档
 
 - `PORTFOLIO_CASE_STUDY.md`：招聘方可在数分钟内阅读的项目结论、证据与边界。
-- `P0_执行计划.md`：每一步执行前锁定的范围、口径和验收标准。
-- `P1_执行计划.md`：Historical Price Monitor 的范围、页面、数据服务和逐步验收计划。
-- `P2_执行计划.md`：概率预测从实验契约到本地产品的任务卡和门槛。
+- `PROJECT_ROADMAP.md`：P0–P7 的决策问题、经济学机制、正式结果和 Pricing 接口总览。
 - `docs/p2_final_model_card.md`：一次性最终测试与产品×跨度发布矩阵。
 - `docs/p2_runbook.md`：P2 本地重建和验收顺序。
 - `docs/p2_interview_guide.md`：面向 pricing / data science 求职的项目讲解与演示路径。
-- `P3_执行计划.md`：价格风险预警从事件契约到本地页面的任务卡和门槛。
 - `docs/p3_final_model_card.md`：独立事件分类的最终测试、产品切片和发布门槛。
 - `docs/p3_runbook.md`：P3 从 Gold 到预警页面的冻结重建顺序。
-- `P4_执行计划.md`：采购情景从坐标、发布路线到本地交付的冻结任务卡。
 - `docs/p4_runbook.md`：P4 从坐标维度到采购页面的顺序化重建与排错说明。
 - `docs/p4_interview_guide.md`：P4 的求职讲解、演示路径和常见追问。
 - `docs/p4_delivery_checklist.md`：P4 最终测试、构建、HTTP 响应和证据清单。
 - `docs/economics_pricing_stage_gate.md`：P0–P7 回顾及后续每阶段必过的经济学/Pricing 七问门槛。
 - `docs/p5_readiness_checklist.md`：P5 开工结论、传播分析契约、经济学门槛和 GitHub/本地边界。
-- `P5_执行计划.md`：P5 从实验契约到 `common_shock_only` 产品的冻结任务卡和发布门槛。
 - `docs/p5_model_card.md`：一次性 final test、网络 no-go 和共同冲击降级结论。
 - `docs/p5_runbook.md`：P5 顺序化复现、final 已消费约束、验收和排错。
 - `docs/p5_interview_guide.md`：面向 pricing / economics / data science 岗位的 P5 讲解路径。
 - `docs/p5_delivery_checklist.md`：P5 数据、统计、Economics/Pricing Gate、页面和 Git 边界清单。
-- `P6_执行计划.md`：P6 从作品集审计到无数据 CI 和最终交付的冻结任务卡。
 - `docs/p6_evidence_matrix.md`：P0–P5 的决策、经济机制、基线、正式证据和不可声称内容。
 - `docs/pricing_integration_contract.md`：本项目向 pricing engine 提供只读决策输入的设计契约。
 - `docs/p6_career_pack.md`：三类目标岗位的简历 bullets、面试回答和边界用语。
 - `docs/p6_demo_script.md`：90 秒与 5 分钟的本地演示脚本。
 - `docs/p6_delivery_checklist.md`：P6 叙事、质量、无数据 CI、Gate 和 Git 边界清单。
-- `P7_执行计划.md`：P7 从公开内容审计、Pages 白名单到上线验收的冻结任务卡。
 - `docs/p7_delivery_checklist.md`：P7 公开 URL、Actions、metadata、内容、数据边界和最终 Gate 清单。
 - `docs/data_access_and_reproducibility.md`：作品集模式、完整数据恢复、Git 排除范围和公开许可门槛。
 - `docs/data_dictionary.md`：来源单位、所有核心表字段和业务含义。
@@ -232,7 +225,7 @@ npm run build
 - `docs/coverage_tier_summary.md`：30 种蔬菜的 Tier A/B/C 城市计数。
 - `docs/p1_data_stories.md`：由正式 mart 自动生成的 3 个面试演示故事。
 
-各阶段执行日志包含本地操作记录与证据路径，仅保留在本机，不进入 GitHub；公开仓库中的阶段计划和方法文档足以说明设计、验收与边界。
+详细阶段计划与执行日志包含内部任务卡、回退过程和本地证据路径，仅保留在本机，不进入 GitHub；公开路线图、模型卡和方法文档用于说明设计、验收与边界。
 
 ## 使用边界
 

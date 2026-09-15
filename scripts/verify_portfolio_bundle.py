@@ -17,7 +17,7 @@ REQUIRED_PATHS = (
     ".github/workflows/pages.yml",
     "README.md",
     "PORTFOLIO_CASE_STUDY.md",
-    "P7_执行计划.md",
+    "PROJECT_ROADMAP.md",
     "docs/economics_pricing_stage_gate.md",
     "docs/data_access_and_reproducibility.md",
     "docs/p6_evidence_matrix.md",
@@ -64,6 +64,10 @@ REQUIRED_IGNORE_RULES = (
     "/GUIDEBOOK_可实施性评审.md",
     "/GUIDEBOOK_撤回执行计划.md",
     ".private-backups/",
+    "/P[0-7]_执行计划.md",
+    "/P5_前置执行计划.md",
+    "/P7_状态评审.md",
+    "/ROADMAP_迁移执行计划.md",
     "web/node_modules/",
     "web/.next/",
     "web/.vinext/",
@@ -89,6 +93,7 @@ FORBIDDEN_PREFIXES = (
 PUBLIC_TEXT_PATHS = (
     "README.md",
     "PORTFOLIO_CASE_STUDY.md",
+    "PROJECT_ROADMAP.md",
     "docs/economics_pricing_stage_gate.md",
     "docs/p6_evidence_matrix.md",
     "docs/pricing_integration_contract.md",
@@ -96,7 +101,6 @@ PUBLIC_TEXT_PATHS = (
     "docs/p6_demo_script.md",
     "docs/p6_delivery_checklist.md",
     "docs/p7_delivery_checklist.md",
-    "P7_执行计划.md",
     "portfolio-site/index.html",
     "web/app/page.tsx",
     "web/app/forecast/page.tsx",
@@ -107,6 +111,23 @@ PUBLIC_TEXT_PATHS = (
 )
 
 PRIVATE_LOCAL_PATHS = (
+    "GUIDEBOOK.md",
+    "GUIDEBOOK_可实施性评审.md",
+    "GUIDEBOOK_撤回执行计划.md",
+    "P0_执行计划.md",
+    "P1_执行计划.md",
+    "P2_执行计划.md",
+    "P3_执行计划.md",
+    "P4_执行计划.md",
+    "P5_前置执行计划.md",
+    "P5_执行计划.md",
+    "P6_执行计划.md",
+    "P7_执行计划.md",
+    "P7_状态评审.md",
+    "ROADMAP_迁移执行计划.md",
+)
+
+PRIVATE_HISTORY_PATHS = (
     "GUIDEBOOK.md",
     "GUIDEBOOK_可实施性评审.md",
     "GUIDEBOOK_撤回执行计划.md",
@@ -141,8 +162,10 @@ def assert_public_text_is_portable() -> None:
         raise AssertionError(f"absolute local paths in public-facing files: {violations}")
 
 
-def assert_private_paths_absent(paths: list[str]) -> None:
-    leaked = sorted(set(PRIVATE_LOCAL_PATHS).intersection(paths))
+def assert_private_paths_absent(
+    paths: list[str], private_paths: tuple[str, ...] = PRIVATE_LOCAL_PATHS
+) -> None:
+    leaked = sorted(set(private_paths).intersection(paths))
     if leaked:
         raise AssertionError(f"private local files in Git paths: {leaked}")
 
@@ -229,7 +252,7 @@ def verify() -> dict:
     assert_private_paths_absent(candidates)
     candidate_count, candidate_bytes = assert_git_candidate_contract(candidates)
     history_paths = git_publishable_history_paths()
-    assert_private_paths_absent(history_paths)
+    assert_private_paths_absent(history_paths, PRIVATE_HISTORY_PATHS)
     assert_git_candidate_contract(history_paths)
     return {
         "status": "pass",

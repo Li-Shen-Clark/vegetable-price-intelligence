@@ -65,6 +65,7 @@ The historical data ends on 2022-06-22 and contains quoted wholesale prices rath
 ## How to review the work
 
 - `README.md` explains the full build, release states and local-only data mode.
+- `PROJECT_ROADMAP.md` summarizes the P0–P7 decision sequence, economics and formal release outcomes.
 - `docs/p6_evidence_matrix.md` maps every claim to its baseline, result and limitation.
 - `docs/pricing_integration_contract.md` defines how evidence could enter a pricing workflow without authorizing price execution.
 - [The public GitHub Pages case study](https://li-shen-clark.github.io/vegetable-price-intelligence/) is the data-free recruiter view; `/case-study` is its local product counterpart, while the five analytical routes require authorized local data that is intentionally excluded from Git.

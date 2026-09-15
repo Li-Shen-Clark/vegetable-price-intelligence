@@ -15,6 +15,8 @@ market measurement → price expectation → risk review → landed-cost scenari
 
 Current state: **P0–P7 completed as a historical portfolio prototype**. The public site is a data-free recruiter view; the five data-backed analytical workspaces remain local because the underlying dataset is not published.
 
+The strongest methodological result is P5’s no-go. Common-factor adjustment removed 47.60% of apparent contemporaneous relationships, and sealed final testing rejected the remaining directional claim. Publishing zero directional edges—rather than a visually persuasive but non-replicating network—is evidence that the release governance worked.
+
 ## Roadmap at a glance
 
 | Stage | Decision question | Economics and method | Formal outcome | Pricing handoff |
@@ -101,9 +103,9 @@ P2 release labels remain visible. Published forecast intervals are used where qu
 
 **Design.** Geography reduced the candidate set to 2,736 directed pairs. The experiment removed training-period seasonality and a leave-one-out common factor, controlled false discovery within product, tested window/bootstrap stability, and required one-time final-test predictive uplift over a target-history-plus-common-factor baseline.
 
-**Result.** Fifteen edges passed validation and stability, but only 4/15 improved final-test RMSE; median improvement was −1.39%. Common-factor adjustment reduced contemporaneous training-period FDR relationships by 47.60%.
+**Result.** Common-factor adjustment first reduced contemporaneous training-period FDR relationships from 1,481 to 776, a 47.60% decline. In the separate directional pipeline, product-level BH-FDR reduced 174 raw train-significant pairs to 51; fifteen edges passed validation and stability, but only 4/15 improved final-test RMSE and median improvement was −1.39%.
 
-**Decision outcome.** The directional network was rejected. The released product is `common_shock_only`: common movement and historical city exposure can widen manual review, but no source-target edge, causal propagation path or automatic price action is published.
+**Decision outcome.** The directional network was rejected and zero edges were released. This is the intended methodological outcome—not a missing deliverable. The released product is `common_shock_only`: common movement and historical city exposure can widen manual review, but no source-target edge, causal propagation path or automatic price action is published.
 
 ## Phase 4 — Package the evidence for review
 

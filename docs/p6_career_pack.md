@@ -29,7 +29,7 @@
 - Developed rolling-origin 7/14/28-day price forecasts with strong persistence and seasonal baselines, one-time final evaluation, and slice-level release governance; delivered 6.30% lower WAPE overall while falling back on 10 weak product-horizon groups.
 - Built an independent price-spike classifier with validation-only threshold selection, reaching PR-AUC 0.2204 versus 0.0775 for the best simple baseline and enforcing a 10% false-positive-rate action budget.
 - Evaluated 2,736 predeclared geographic lead-lag candidates using leave-one-out common factors, product-level BH-FDR, split stability, 250-block bootstrap, and sealed final testing; rejected network release when only 4/15 frozen edges improved out of sample.
-- Implemented 177 automated data, leakage, metric, release, scenario, product-boundary, and public-portfolio tests across a local Python/Parquet and React analytics system.
+- Implemented 178 automated data, leakage, metric, release, scenario, product-boundary, and public-portfolio tests across a local Python/Parquet and React analytics system.
 
 ### 中文口述重点
 

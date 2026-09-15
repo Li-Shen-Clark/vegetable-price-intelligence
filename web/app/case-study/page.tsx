@@ -85,7 +85,7 @@ const stages = [
     step: 'P5',
     title: '共同冲击治理',
     question: '方向关系能否跨窗口复现？',
-    evidence: '15 条冻结边仅 4 条 final 改善为正',
+    evidence: '共同因子关系 −47.60%；15 条冻结边仅 4 条 final 正增益',
     status: 'network no-go',
     icon: Waves,
   },
@@ -153,7 +153,7 @@ export default function CaseStudyPage() {
             ['8.68M', '市场报价', '保留原始审计键与无效记录'],
             ['117', '城市', '城市日两级中位价格'],
             ['30', '蔬菜', '10 种进入正式建模范围'],
-            ['177', '本地自动测试', '数据、泄漏、指标与发布契约'],
+            ['178', '本地自动测试', '数据、泄漏、指标与发布契约'],
           ].map(([value, label, note]) => (
             <Card key={label} className="border-0 bg-card/92 ring-1 ring-foreground/8">
               <CardContent className="pt-4">
@@ -197,9 +197,14 @@ export default function CaseStudyPage() {
             <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">统计显著、漂亮可视化或平均改善都不自动成为产品功能。每一层必须相对强基线、错误成本和预设 release gate 获得资格。</p>
             <div className="mt-5 rounded-xl bg-primary p-5 text-primary-foreground">
               <Network className="size-5 opacity-80" />
-              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] opacity-75">P5 sealed final test</p>
-              <p className="mt-1 font-heading text-3xl font-semibold">15 → 4 → 0</p>
-              <p className="mt-2 text-sm leading-6 opacity-85">15 条 validation/稳定性边中仅 4 条 final 改善为正；跨产品网络发布边为 0，产品降级为共同冲击与城市暴露。</p>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] opacity-75">P5 common-shock control</p>
+              <p className="mt-1 font-heading text-3xl font-semibold">1,481 → 776 <span className="text-base">−47.60%</span></p>
+              <p className="mt-2 text-sm leading-6 opacity-85">剔除季节项和 leave-one-out 共同因子后，训练期同时相关 FDR 关系接近减半；剩余关系仍不等于方向或因果。</p>
+              <div className="mt-4 border-t border-primary-foreground/20 pt-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] opacity-75">Directional release gate</p>
+                <p className="mt-1 font-heading text-2xl font-semibold">2,736 → 51 → 15 → 4</p>
+                <p className="mt-2 text-sm leading-6 opacity-85">正增益占比 26.67% 低于 70% 门槛且中位改善 −1.39%，所以发布 0 条方向边。拒绝伪网络就是方法论结果。</p>
+              </div>
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -207,7 +212,7 @@ export default function CaseStudyPage() {
               { title: '强基线', text: 'P2 与 last price、weekly pattern 和 seasonal median 比较；10 个弱产品×跨度组继续使用基线。', icon: Scale },
               { title: '错误成本', text: 'P3 在 FPR≤10% 下冻结阈值，并公开 precision 21.31%，只进入人工复核。', icon: Gauge },
               { title: '参数敏感性', text: 'P4 用 36 组运输、损耗和风险偏好区分“最低成本”与“排名稳定”。', icon: BarChart3 },
-              { title: '竞争解释', text: 'P5 先剔除共同冲击；训练期同时相关 FDR 关系减少 47.60%。', icon: Waves },
+              { title: '方法论胜利', text: 'P5 用共同冲击、BH-FDR 和 sealed final test 阻止未复现的方向网络进入产品。', icon: Waves },
             ].map((item) => {
               const Icon = item.icon;
               return (

@@ -27,7 +27,7 @@ class P6CareerMaterialsTests(unittest.TestCase):
             "37.69% recall",
             "9.99% false-positive rate",
             "4/15 frozen edges",
-            "177 automated",
+            "178 automated",
         ]:
             self.assertIn(metric, self.career)
 
@@ -37,7 +37,7 @@ class P6CareerMaterialsTests(unittest.TestCase):
             "baseline fallback",
             "Final recall",
             "36 组敏感性",
-            "网络不发布",
+            "发布 0 条方向边",
             "共同冲击和城市暴露",
         ]:
             self.assertIn(phrase, self.demo)

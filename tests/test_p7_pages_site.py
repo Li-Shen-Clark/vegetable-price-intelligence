@@ -39,6 +39,13 @@ class P7PagesSiteTests(unittest.TestCase):
             "Network no-go",
             "4 of 15 frozen edges",
             "0</strong> published directional edges",
+            "Forecast release by horizon",
+            "Alert stability: validation → final",
+            "Propagation evidence funnel",
+            "42.15 → 37.69%",
+            "21.28 → 22.04%",
+            "2,736",
+            "No row-level price data",
         ]:
             self.assertIn(phrase, self.index)
 

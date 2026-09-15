@@ -131,4 +131,4 @@ python3 src/pipeline/build_p0.py
 python3 -m unittest discover -s tests -v
 ```
 
-完整执行计划和逐步证据分别见 `P0_执行计划.md` 与 `P0_执行日志.md`。各 Parquet 的输入、模式、行数和 SHA-256 记录在同目录 manifest 中。
+公开阶段结论见 `PROJECT_ROADMAP.md`；详细执行计划和逐步日志只保存在本地。各 Parquet 的输入、模式、行数和 SHA-256 记录在同目录 manifest 中。

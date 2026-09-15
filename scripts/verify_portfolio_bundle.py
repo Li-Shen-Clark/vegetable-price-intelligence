@@ -68,6 +68,7 @@ REQUIRED_IGNORE_RULES = (
     "/P5_前置执行计划.md",
     "/P7_状态评审.md",
     "/ROADMAP_迁移执行计划.md",
+    "/EVIDENCE_DASHBOARD_P5_执行计划.md",
     "web/node_modules/",
     "web/.next/",
     "web/.vinext/",
@@ -125,6 +126,7 @@ PRIVATE_LOCAL_PATHS = (
     "P7_执行计划.md",
     "P7_状态评审.md",
     "ROADMAP_迁移执行计划.md",
+    "EVIDENCE_DASHBOARD_P5_执行计划.md",
 )
 
 PRIVATE_HISTORY_PATHS = (

@@ -8,7 +8,7 @@
 
 - [x] 英文首屏说明核心问题：把批发市场信号转化为受治理的 Pricing 决策支持。
 - [x] 首屏说明个人贡献：经济学问题设计、数据工程、模型评估、发布治理、Pricing handoff 与产品交付。
-- [x] 展示 8.68M 市场记录、117 城、30 种蔬菜和 177 项测试。
+- [x] 首屏展示 8.68M 市场记录、117 城、30 种蔬菜和 P5 共同因子校正减少 47.6%；Build 区展示 178 项测试。
 - [x] P0–P5 形成连续决策链，而不是模型功能列表。
 - [x] P2 `partial_release`、P3 `alert_release`、P4 `scenario_release` 与 P5 network `no-go` 均被显式保留。
 - [x] 明确本项目是 Pricing Engine 的上游 intelligence layer，不是自动定价引擎。
@@ -35,11 +35,11 @@
 
 ## 4. 自动与本地验收
 
-- [x] 完整本地测试：177/177。
-- [x] Code-only 测试：39/39。
+- [x] 完整本地测试：178/178。
+- [x] Code-only 测试：40/40。
 - [x] Web lint：0 error。
 - [x] Web production build：6 个路由构建成功。
-- [x] Pages bundle verifier：6 个文件、1,969,044 bytes，通过。
+- [x] Pages bundle verifier：6 个文件、1,987,928 bytes，通过。
 - [x] Portfolio bundle verifier：无数据和执行日志，必需文件齐全。
 - [x] 本地静态预览：首页、CSS、OG 与 sitemap 均返回 HTTP 200。
 

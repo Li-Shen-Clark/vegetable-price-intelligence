@@ -26,7 +26,7 @@ class P6CaseStudyPageTests(unittest.TestCase):
             "Pricing Intelligence layer",
             "8.68M",
             "117",
-            "177",
+            "178",
             "它不是实时 Pricing Engine",
             "数据截至 2022-06-22",
         ]:
@@ -38,7 +38,9 @@ class P6CaseStudyPageTests(unittest.TestCase):
             "alert release",
             "scenario release",
             "network no-go",
-            "15 → 4 → 0",
+            "1,481 → 776",
+            "2,736 → 51 → 15 → 4",
+            "拒绝伪网络就是方法论结果",
             "Pricing engine 再结合库存、客户、合同、margin floor 与审批规则",
         ]:
             self.assertIn(phrase, self.page)

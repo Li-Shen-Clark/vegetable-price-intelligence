@@ -23,13 +23,14 @@ class P7PagesSiteTests(unittest.TestCase):
             "8.68M",
             "117",
             "30",
-            "177",
+            "47.6%</strong><span>apparent relationships removed",
             "Built by",
             "Li Shen",
             "Applied Economist · Pricing &amp; Decision Science",
         ]:
             self.assertIn(phrase, self.index)
         self.assertIn('<meta name="author" content="Li Shen"', self.index)
+        self.assertIn('href="#evidence">See the evidence gates', self.index)
 
     def test_02_formal_product_states_and_failure_remain_visible(self):
         for phrase in [
@@ -37,17 +38,26 @@ class P7PagesSiteTests(unittest.TestCase):
             "Alert release",
             "Scenario release",
             "Network no-go",
-            "4 of 15 frozen edges",
-            "0</strong> published directional edges",
+            "How controls stopped 99.9% of candidates from becoming claims",
+            "1,481",
+            "776",
+            "174",
+            "51",
+            "26.7%</strong> positive vs <b>70%</b> gate",
+            "−1.39%</strong> median RMSE uplift vs <b>+1%</b> gate",
+            "0</b><span>directional edges released",
+            "without common-shock control and product-level multiple-testing discipline",
+            "common_shock_only",
             "Forecast release by horizon",
             "Alert stability: validation → final",
-            "Propagation evidence funnel",
             "42.15 → 37.69%",
             "21.28 → 22.04%",
             "2,736",
             "No row-level price data",
+            "178 tests",
         ]:
             self.assertIn(phrase, self.index)
+        self.assertNotIn("Propagation evidence funnel", self.index)
 
     def test_03_economics_and_pricing_engine_boundary_are_explicit(self):
         for phrase in [

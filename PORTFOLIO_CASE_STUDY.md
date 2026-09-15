@@ -17,6 +17,16 @@ market measurement → price expectation → risk review → landed-cost scenari
 
 The intelligence layer supplies evidence and review triggers. It never bypasses business constraints to execute a price.
 
+## The most valuable result: a network I refused to ship
+
+A naïve city-network analysis could have produced an impressive visualization and a weak product claim. I treated common movement, multiple testing and out-of-sample replication as release blockers instead.
+
+- Even after contemporaneous FDR control, 1,481 apparent relationships existed before common-factor adjustment; removing seasonality and a leave-one-out common factor reduced that count to 776, a 47.60% decline.
+- The directional pipeline separately reduced 2,736 predeclared geographic candidates to 51 product-level BH-FDR relationships and 15 validation/stability edges.
+- In the sealed final test, only 4/15 had positive RMSE improvement; the positive share was 26.67% against a 70% gate, and median uplift was −1.39% against a +1% gate.
+
+I therefore released zero directional edges and shipped `common_shock_only`. The negative result is a governance success: the product did not turn shared movement or in-sample significance into a pricing claim.
+
 ## What I built
 
 | Stage | Decision question | Method | Formal outcome |
@@ -35,7 +45,7 @@ I treated every advanced method as a claim that could be rejected.
 - P2 preserved last-price and seasonal baselines when the model did not earn release.
 - P3 selected an action threshold under a predeclared 10% false-positive-rate constraint and disclosed that 78.69% of alerts were false positives.
 - P4 carried P2’s fallback labels into downstream costs instead of relabeling all inputs as AI forecasts.
-- P5 reduced 2,736 geographic candidates to 15 validation/stability edges, then rejected the directional network when only 4/15 improved final-test RMSE and median uplift was −1.39%.
+- P5 showed that common-factor adjustment removed 47.60% of apparent contemporaneous relationships, then rejected the directional network when only 4/15 frozen edges improved final-test RMSE and median uplift was −1.39%.
 
 This is the project’s core governance result: **evidence quality determines the product state**—model, baseline, human review, scenario, or no-go.
 

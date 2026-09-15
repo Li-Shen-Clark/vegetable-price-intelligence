@@ -32,7 +32,7 @@
 - [x] mart、Web 数据和敏感性 artifact 含行数/哈希 manifest。
 - [x] `docs/p4_runbook.md` 提供从零重建、分步验收、排错与回滚。
 - [x] `docs/p4_interview_guide.md` 提供求职叙事、演示路径和证据边界。
-- [x] `GUIDEBOOK.md`、`README.md`、`docs/data_dictionary.md` 已同步实际实现。
+- [x] `README.md`、公开案例文档、`docs/data_dictionary.md` 已同步实际实现。
 - [x] P0–P4 全量 Python 测试 101/101 通过，其中 P4 新增 29 项。
 - [x] P4 采购页定向 lint 通过。
 - [x] 生产构建最终复跑通过并识别 `/`、`/forecast`、`/alerts`、`/procurement`。

@@ -48,6 +48,10 @@ h1 { max-width: 840px; font-size: clamp(46px, 6vw, 76px); line-height: 1.02; fon
 h2 { font-size: clamp(30px, 4vw, 45px); line-height: 1.1; font-weight: 600; }
 h3 { font-size: 20px; line-height: 1.2; }
 .lede { max-width: 780px; margin-top: 28px; color: var(--ink-soft); font-size: 18px; line-height: 1.75; }
+.builder-byline { display: grid; gap: 1px; width: fit-content; margin-top: 25px; padding-left: 16px; border-left: 3px solid var(--amber); }
+.builder-label { color: var(--ink-soft); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.builder-byline strong { font-family: Georgia, "Times New Roman", serif; font-size: 21px; line-height: 1.25; font-weight: 600; }
+.builder-role { color: var(--green-2); font-size: 12px; font-weight: 700; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid transparent; border-radius: 10px; font-size: 13px; font-weight: 750; text-decoration: none; transition: transform .15s ease, background .15s ease; }
 .button:hover { transform: translateY(-1px); }

@@ -38,6 +38,7 @@
           </span>
         </a>
         <nav aria-label="Case study navigation">
+          <a href="#evidence">Evidence</a>
           <a href="#decisions">Decisions</a>
           <a href="#economics">Economics</a>
           <a href="#build">Build</a>
@@ -90,6 +91,107 @@
           <article><strong>30</strong><span>vegetables</span><small>10 in formal modeling scope</small></article>
           <article><strong>177</strong><span>automated tests</span><small>data, leakage, metrics, release</small></article>
         </div>
+      </section>
+
+      <section class="section shell evidence-dashboard" id="evidence">
+        <div class="section-heading narrow">
+          <div>
+            <p class="eyebrow">Frozen out-of-sample evidence</p>
+            <h2>Performance is shown against the decision rule.</h2>
+          </div>
+          <p>These visuals use model-card aggregates already disclosed in the repository. No city-, product-, or date-level price observations are included in the public package.</p>
+        </div>
+
+        <div class="chart-grid">
+          <figure class="chart-card">
+            <figcaption>
+              <span class="chart-number">01</span>
+              <div><p class="chart-kicker">P2 · Forecast</p><h3>Forecast release by horizon</h3></div>
+            </figcaption>
+            <p class="chart-intro">Each bar contains ten frozen product–horizon decisions. A model is shown only where it earned release.</p>
+            <div class="release-chart" role="img" aria-label="At 7 days, 8 products use baseline fallback and 2 use point models. At 14 days, 1 uses baseline fallback, 8 use point models, and 1 meets minimum model release. At 28 days, 1 uses baseline fallback, 6 use point models, 2 meet minimum release, and 1 meets target release.">
+              <div class="release-row">
+                <strong>7d</strong>
+                <div class="release-stack"><span class="baseline" style="flex: 8">8</span><span class="point" style="flex: 2">2</span></div>
+              </div>
+              <div class="release-row">
+                <strong>14d</strong>
+                <div class="release-stack"><span class="baseline" style="flex: 1"></span><span class="point" style="flex: 8">8</span><span class="minimum" style="flex: 1"></span></div>
+              </div>
+              <div class="release-row">
+                <strong>28d</strong>
+                <div class="release-stack"><span class="baseline" style="flex: 1"></span><span class="point" style="flex: 6">6</span><span class="minimum" style="flex: 2">2</span><span class="target" style="flex: 1"></span></div>
+              </div>
+            </div>
+            <div class="chart-legend release-legend" aria-label="Forecast release legend">
+              <span><i class="baseline"></i>Baseline fallback</span>
+              <span><i class="point"></i>Point model</span>
+              <span><i class="minimum"></i>Minimum + interval</span>
+              <span><i class="target"></i>Target + interval</span>
+            </div>
+            <p class="chart-note"><strong>Reading:</strong> 7-day decisions remain baseline-heavy; longer horizons support more model use without hiding fallback slices.</p>
+          </figure>
+
+          <figure class="chart-card">
+            <figcaption>
+              <span class="chart-number">02</span>
+              <div><p class="chart-kicker">P3 · Alert</p><h3>Alert stability: validation → final</h3></div>
+            </figcaption>
+            <p class="chart-intro">The action threshold was frozen on validation. Final test measures drift without selecting a new threshold.</p>
+            <svg class="stability-chart" viewBox="0 0 440 250" role="img" aria-labelledby="stability-title stability-desc">
+              <title id="stability-title">Alert metric stability from validation to final test</title>
+              <desc id="stability-desc">Average precision rises from 21.28 to 22.04 percent. Recall falls from 42.15 to 37.69 percent. False positive rate remains near its 10 percent budget, moving from 9.96 to 9.99 percent.</desc>
+              <g class="chart-gridlines">
+                <line x1="58" y1="28" x2="414" y2="28"></line>
+                <line x1="58" y1="124" x2="414" y2="124"></line>
+                <line x1="58" y1="220" x2="414" y2="220"></line>
+              </g>
+              <g class="axis-labels">
+                <text x="50" y="32" text-anchor="end">50%</text>
+                <text x="50" y="128" text-anchor="end">25%</text>
+                <text x="50" y="224" text-anchor="end">0%</text>
+                <text x="122" y="244" text-anchor="middle">Validation</text>
+                <text x="350" y="244" text-anchor="middle">Final test</text>
+              </g>
+              <line class="fpr-budget" x1="58" y1="182" x2="414" y2="182"></line>
+              <text class="budget-label" x="410" y="176" text-anchor="end">10% FPR budget</text>
+              <polyline class="metric-line recall-line" points="122,58 350,75"></polyline>
+              <circle class="metric-dot recall-line" cx="122" cy="58" r="5"></circle>
+              <circle class="metric-dot recall-line" cx="350" cy="75" r="5"></circle>
+              <polyline class="metric-line ap-line" points="122,138 350,135"></polyline>
+              <circle class="metric-dot ap-line" cx="122" cy="138" r="5"></circle>
+              <circle class="metric-dot ap-line" cx="350" cy="135" r="5"></circle>
+              <polyline class="metric-line fpr-line" points="122,182 350,182"></polyline>
+              <circle class="metric-dot fpr-line" cx="122" cy="182" r="5"></circle>
+              <circle class="metric-dot fpr-line" cx="350" cy="182" r="5"></circle>
+            </svg>
+            <div class="chart-legend metric-legend">
+              <span><i class="recall-line"></i>Recall <b>42.15 → 37.69%</b></span>
+              <span><i class="ap-line"></i>Average precision <b>21.28 → 22.04%</b></span>
+              <span><i class="fpr-line"></i>FPR <b>9.96 → 9.99%</b></span>
+            </div>
+            <p class="chart-note"><strong>Reading:</strong> ranking quality holds, recall softens, and the false-positive constraint remains reproducible.</p>
+          </figure>
+
+          <figure class="chart-card">
+            <figcaption>
+              <span class="chart-number">03</span>
+              <div><p class="chart-kicker">P5 · Propagation</p><h3>Propagation evidence funnel</h3></div>
+            </figcaption>
+            <p class="chart-intro">Every reduction is a predeclared evidence gate. The final product state follows the test—not the visual appeal of a network.</p>
+            <ol class="evidence-funnel" aria-label="Propagation evidence funnel from 2,736 candidates to zero published directional relationships">
+              <li style="--funnel-width: 100%"><strong>2,736</strong><span>geographic candidates</span></li>
+              <li style="--funnel-width: 82%"><strong>991</strong><span>estimable pairs</span></li>
+              <li style="--funnel-width: 64%"><strong>15</strong><span>validation + stability</span></li>
+              <li style="--funnel-width: 48%"><strong>4</strong><span>positive final gains</span></li>
+              <li class="funnel-no-go" style="--funnel-width: 34%"><strong>0</strong><span>published directions</span></li>
+            </ol>
+            <p class="funnel-scale">Stage widths are schematic; counts are exact.</p>
+            <p class="chart-note"><strong>Decision:</strong> directional network <em>no-go</em>; release common-shock exposure only.</p>
+          </figure>
+        </div>
+
+        <p class="evidence-boundary">Visual evidence only · Frozen historical evaluation · No row-level price data</p>
       </section>
 
       <section class="section shell" id="decisions">

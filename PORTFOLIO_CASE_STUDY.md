@@ -2,6 +2,8 @@
 
 ## From market signals to governed pricing decisions
 
+**Timeline: 2021–Present.** I began assembling and harmonizing the underlying wholesale-price data in 2021, then extended that multi-year research asset in 2026 into forecasting, risk-classification, and model-governance products.
+
 I built an economics-informed decision system from 2014–2022 Chinese wholesale vegetable prices covering 117 cities and 30 products. The project does not generate an “optimal retail price.” It answers the upstream questions a pricing team must resolve first: Is the market price trustworthy? What is likely to happen next? Is a large increase worth reviewing? Does a cheaper source remain cheaper after friction and risk? Is a multi-city movement a common shock or a reproducible lead-lag signal?
 
 ## The decision problem

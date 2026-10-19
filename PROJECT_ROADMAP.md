@@ -2,6 +2,8 @@
 
 ## Executive summary
 
+**Timeline: 2021–Present.** The underlying wholesale-price data assembly and research began in 2021. The governed forecasting, risk-classification, and model-governance product layer was developed in 2026.
+
 This project converts 8.68 million historical wholesale-market records into a governed Pricing Intelligence layer. It measures market prices, forms historical expectations, flags review-worthy increases, compares risk-adjusted sourcing scenarios, and tests whether apparent city-to-city propagation survives common-shock controls.
 
 The system is complementary to a pricing engine. It supplies evidence, uncertainty and review triggers; it does not set a retail price, approve a quote, select a supplier or execute a transaction.

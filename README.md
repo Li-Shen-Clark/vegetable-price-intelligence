@@ -4,6 +4,8 @@
 
 该项目把 2014–2022 年、117 个城市、30 种蔬菜的批发市场日度报价整理为可追溯的市场事实、城市日价格和覆盖 Tier，并在此基础上实现 Price Monitor、概率预测、风险预警、采购情景，以及共同冲击与价格传播实验。
 
+**项目时间线：2021–Present。** 2021 年开始整理、统一和研究底层批发价格数据；2026 年在这项多年研究资产上开发 forecasting、risk-classification 与 model-governance 产品层。该时间线不表示 forecasting system 在 2021 年已经存在。
+
 它与现有 pricing engine 互补。pricing engine 面向当下的报价执行、规则和交易流程；本项目提供历史市场情报、数据质量、预测与风险证据。未来可以把这些输出作为 engine 的决策输入，但它本身不是实时定价执行系统。
 
 从 P5 开始，所有阶段必须先通过统一的 Economics & Pricing Stage Gate：明确决策用户、经济机制、单位与约束、比较基准或识别、不确定性、Pricing 工作流接口和不可声称内容。Gate 见 `docs/economics_pricing_stage_gate.md`，避免只增加模型而丢失经济问题。

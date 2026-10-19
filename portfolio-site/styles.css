@@ -211,9 +211,6 @@ h3 { font-size: 20px; line-height: 1.2; }
 .link-grid strong { font-family: Georgia, "Times New Roman", serif; font-size: 19px; }
 .link-grid span { color: var(--ink-soft); font-size: 12px; }
 .link-grid b { color: var(--green-2); }
-.chinese-summary { border-top: 1px solid var(--line); }
-.chinese-summary h2 { max-width: 900px; }
-.chinese-summary > p:last-child { max-width: 900px; margin-top: 20px; color: var(--ink-soft); font-size: 14px; }
 
 .closing { padding-block: 64px; background: var(--amber); color: #2f2616; }
 .closing .eyebrow { color: #58431e; }

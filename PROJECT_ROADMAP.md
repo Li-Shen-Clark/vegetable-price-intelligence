@@ -29,7 +29,7 @@ The strongest methodological result is P5’s no-go. Common-factor adjustment re
 | P3 · Risk alert | Can large increases be detected under a fixed false-alert budget? | Event design, asymmetric action cost and a validation-frozen threshold | `alert_release`; 37.69% recall at 9.99% FPR | Triggers human supply/inventory/pricing review |
 | P4 · Procurement | Does a lower quoted price survive transport, loss and uncertainty? | Spatial price dispersion, transaction costs, risk-adjusted landed cost and sensitivity | `scenario_release`; historical candidates for inquiry | Supplies scenario cost inputs, never a purchase order |
 | P5 · Shock analysis | Does a source city add information beyond common movement? | Common shocks, geographic candidate restriction, FDR, bootstrap and final-test uplift | Direction network `no-go`; `common_shock_only` retained | Expands manual review scope without causal or automated claims |
-| P6 · Career delivery | Can every claim be traced to evidence and a Pricing interface? | Evidence matrix, model governance and read-only integration contract | Data-free case study, career pack and code-only CI | Explains how evidence could enter an approval workflow |
+| P6 · Career delivery | Can every claim be traced to evidence and a Pricing interface? | Evidence matrix, model governance and read-only integration contract | Data-free case study and code-only CI | Explains how evidence could enter an approval workflow |
 | P7 · Public release | Can a recruiter verify ownership, economics and limitations quickly? | Content hierarchy, release-state preservation and publishable-data controls | GitHub Pages recruiter site released | Public proof of work without exposing source data |
 
 ## Phase 1 — Build a trustworthy measurement layer
@@ -114,7 +114,7 @@ P2 release labels remain visible. Published forecast intervals are used where qu
 
 ### P6 · Evidence and integration governance
 
-P6 converted technical results into an evidence matrix, recruiter case study, role-specific interview material and a read-only Pricing integration contract. The contract separates intelligence outputs from the fields a production engine would still require: current cost, demand, inventory, margin rules, customer terms and approvals.
+P6 converted technical results into an evidence matrix, recruiter case study and a read-only Pricing integration contract. Interview preparation remains local. The contract separates intelligence outputs from the fields a production engine would still require: current cost, demand, inventory, margin rules, customer terms and approvals.
 
 ### P7 · Public portfolio release
 
@@ -164,4 +164,4 @@ Those additions would enable questions this dataset cannot answer: elasticity, w
 
 ## Public repository boundary
 
-The public repository contains code, configuration, tests and curated evidence documents. Raw/derived data, model artifacts, detailed internal execution plans and execution logs remain local. Git history and automated tests provide implementation evidence without requiring recruiters to navigate operational work notes.
+The public repository contains code, configuration, tests and curated evidence documents. Raw/derived data, model artifacts, product guidebooks, detailed internal plans, execution logs and career preparation remain local. Publication checks inspect every commit tree in local branches and tags as well as the current files. Git history and automated tests provide implementation evidence without requiring recruiters to navigate operational work notes.

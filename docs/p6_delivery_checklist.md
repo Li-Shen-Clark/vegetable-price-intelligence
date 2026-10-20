@@ -16,10 +16,10 @@
 - [x] `docs/economics_pricing_stage_gate.md` records the final P6 G1–G7 decision.
 - [x] Résumé and demo materials do not claim revenue lift, profit impact, causal propagation, live deployment or automatic pricing.
 
-## 3. Career assets
+## 3. Local career preparation and public visual assets
 
-- [x] `docs/p6_career_pack.md` supports Pricing Analyst, Pricing Data Scientist and Economics/Data Scientist applications.
-- [x] `docs/p6_demo_script.md` includes 90-second and 5-minute routes.
+- [x] Role-specific résumé preparation is retained locally and excluded from public Git history.
+- [x] The 90-second and 5-minute demo scripts are retained locally and are not required by public CI.
 - [x] The demo deliberately includes one successful signal, one partial release and one no-go result.
 - [x] The OG image is a data-free brand visual rather than a screenshot of private analysis data.
 
@@ -32,7 +32,7 @@
 | Full web lint | passed with 0 errors |
 | Production build | passed with six routes, including `/case-study` |
 | Local route check | `/case-study` and `/og.png` both returned HTTP 200 |
-| Strict portfolio verifier | passed; no forbidden Git candidate or history path |
+| Strict portfolio verifier | Passed under the P6 rules; current rules also check private documents in every local branch and tag |
 
 The GitHub workflow has repository read-only permission and runs only code contracts, lint and build. It does not upload/download artifacts, reference data, CSV, Parquet or browser JSON, and it requires no repository secrets.
 
@@ -41,6 +41,7 @@ The GitHub workflow has repository read-only permission and runs only code contr
 - [x] Raw and derived data remain ignored.
 - [x] `artifacts/`, `web/public/data/`, reference CSVs and unmatched-market worklists remain ignored.
 - [x] Every `*执行日志.md` remains local and ignored.
+- [x] Product guidebooks, internal plans/reviews and career preparation are excluded from both the current tree and publishable history.
 - [x] Public Markdown and page source contain no machine-specific absolute path.
 - [x] No website deployment is part of P6.
 - [x] The final P6 commit is local only; pushing remains a user-controlled action.

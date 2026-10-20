@@ -31,7 +31,7 @@
 - [x] `config/p4_procurement.yaml` 冻结全部参数与路径。
 - [x] mart、Web 数据和敏感性 artifact 含行数/哈希 manifest。
 - [x] `docs/p4_runbook.md` 提供从零重建、分步验收、排错与回滚。
-- [x] `docs/p4_interview_guide.md` 提供求职叙事、演示路径和证据边界。
+- [x] 求职讲解与演示准备已保存于本地，不属于公开仓库交付文件。
 - [x] `README.md`、公开案例文档、`docs/data_dictionary.md` 已同步实际实现。
 - [x] P0–P4 全量 Python 测试 101/101 通过，其中 P4 新增 29 项。
 - [x] P4 采购页定向 lint 通过。

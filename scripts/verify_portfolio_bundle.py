@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+from fnmatch import fnmatchcase
 from pathlib import Path
 
 
@@ -22,8 +23,6 @@ REQUIRED_PATHS = (
     "docs/data_access_and_reproducibility.md",
     "docs/p6_evidence_matrix.md",
     "docs/pricing_integration_contract.md",
-    "docs/p6_career_pack.md",
-    "docs/p6_demo_script.md",
     "docs/p6_delivery_checklist.md",
     "docs/p7_delivery_checklist.md",
     "portfolio-site/index.html",
@@ -71,6 +70,9 @@ REQUIRED_IGNORE_RULES = (
     "/ROADMAP_迁移执行计划.md",
     "/EVIDENCE_DASHBOARD_P5_执行计划.md",
     "/P7_三个小项_执行计划.md",
+    "/docs/*_interview_guide.md",
+    "/docs/*_career_pack.md",
+    "/docs/*_demo_script.md",
     "web/node_modules/",
     "web/.next/",
     "web/.vinext/",
@@ -82,6 +84,8 @@ REQUIRED_IGNORE_RULES = (
 )
 
 FORBIDDEN_PREFIXES = (
+    ".private-backups/",
+    ".private-deliverables/",
     "artifacts/",
     "baselines/",
     "dataSource/",
@@ -100,8 +104,6 @@ PUBLIC_TEXT_PATHS = (
     "docs/economics_pricing_stage_gate.md",
     "docs/p6_evidence_matrix.md",
     "docs/pricing_integration_contract.md",
-    "docs/p6_career_pack.md",
-    "docs/p6_demo_script.md",
     "docs/p6_delivery_checklist.md",
     "docs/p7_delivery_checklist.md",
     "portfolio-site/index.html",
@@ -131,12 +133,23 @@ PRIVATE_LOCAL_PATHS = (
     "ROADMAP_迁移执行计划.md",
     "EVIDENCE_DASHBOARD_P5_执行计划.md",
     "P7_三个小项_执行计划.md",
+    "docs/p2_interview_guide.md",
+    "docs/p4_interview_guide.md",
+    "docs/p5_interview_guide.md",
+    "docs/p6_career_pack.md",
+    "docs/p6_demo_script.md",
 )
 
-PRIVATE_HISTORY_PATHS = (
-    "GUIDEBOOK.md",
-    "GUIDEBOOK_可实施性评审.md",
-    "GUIDEBOOK_撤回执行计划.md",
+# Current files and historical versions must obey the same publication boundary.
+PRIVATE_HISTORY_PATHS = PRIVATE_LOCAL_PATHS
+PRIVATE_FILENAME_PATTERNS = (
+    "guidebook*.md",
+    "*执行计划.md",
+    "*执行日志.md",
+    "*状态评审.md",
+    "*_interview_guide.md",
+    "*_career_pack.md",
+    "*_demo_script.md",
 )
 
 
@@ -171,9 +184,24 @@ def assert_public_text_is_portable() -> None:
 def assert_private_paths_absent(
     paths: list[str], private_paths: tuple[str, ...] = PRIVATE_LOCAL_PATHS
 ) -> None:
-    leaked = sorted(set(private_paths).intersection(paths))
+    exact_paths = {path.casefold() for path in private_paths}
+    leaked = []
+    for relative in paths:
+        path = Path(relative)
+        if (
+            relative.casefold() in exact_paths
+            or any(
+                fnmatchcase(path.name.casefold(), pattern)
+                for pattern in PRIVATE_FILENAME_PATTERNS
+            )
+            or any(
+                part.casefold() in {".private-backups", ".private-deliverables"}
+                for part in path.parts
+            )
+        ):
+            leaked.append(relative)
     if leaked:
-        raise AssertionError(f"private local files in Git paths: {leaked}")
+        raise AssertionError(f"private local files in Git paths: {sorted(set(leaked))}")
 
 
 def git_candidate_paths() -> list[str]:
@@ -187,32 +215,58 @@ def git_candidate_paths() -> list[str]:
     if result.returncode != 0:
         return []
     candidates = subprocess.run(
-        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
         cwd=ROOT,
         capture_output=True,
         text=True,
         check=True,
     )
-    return [line for line in candidates.stdout.splitlines() if line]
+    return sorted(set(path for path in candidates.stdout.split("\0") if path))
 
 
-def git_publishable_history_paths(ref: str = "HEAD") -> list[str]:
-    """List every path reachable from the branch/ref that would be pushed."""
+def git_publishable_history_paths(ref: str | None = None) -> list[str]:
+    """Inspect every commit tree, including deleted files and same-content aliases.
+
+    Inspect HEAD and all local branches/tags by default. Remote-tracking refs and
+    application checkpoints are not publication targets; do not push with --mirror.
+    """
     result = subprocess.run(
-        ["git", "rev-list", "--objects", ref],
+        ["git", "rev-parse", "--is-shallow-repository"],
         cwd=ROOT,
         capture_output=True,
         text=True,
-        check=False,
+        check=True,
     )
-    if result.returncode != 0:
-        return []
-    paths: list[str] = []
-    for line in result.stdout.splitlines():
-        _, separator, path = line.partition(" ")
-        if separator and path:
-            paths.append(path)
-    return paths
+    if result.stdout.strip() != "false":
+        raise AssertionError("full Git history is required; use fetch-depth: 0 in CI")
+    refs = [ref] if ref else ["HEAD"]
+    if ref is None:
+        local_refs = subprocess.run(
+            ["git", "for-each-ref", "--format=%(refname)", "refs/heads", "refs/tags"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        refs.extend(local_refs.stdout.splitlines())
+    commits = subprocess.run(
+        ["git", "rev-list", *refs],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.splitlines()
+    paths: set[str] = set()
+    for commit in commits:
+        tree = subprocess.run(
+            ["git", "ls-tree", "-r", "-z", "--name-only", commit],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        paths.update(path for path in tree.stdout.split("\0") if path)
+    return sorted(paths)
 
 
 def assert_git_candidate_contract(paths: list[str]) -> tuple[int, int]:
@@ -223,7 +277,7 @@ def assert_git_candidate_contract(paths: list[str]) -> tuple[int, int]:
         if relative == ".DS_Store" or relative.startswith(FORBIDDEN_PREFIXES):
             forbidden.append(relative)
         suffix = Path(relative).suffix.lower()
-        if suffix in {".csv", ".parquet"}:
+        if suffix in {".csv", ".parquet", ".pem", ".key", ".p12", ".pfx"}:
             forbidden.append(relative)
         if relative.startswith("data/") and relative != "data/README.md":
             forbidden.append(relative)

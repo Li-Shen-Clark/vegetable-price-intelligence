@@ -66,6 +66,11 @@ unmatched_markets.csv
 /EVIDENCE_DASHBOARD_P5_执行计划.md
 /P7_三个小项_执行计划.md
 
+# Career preparation stays available locally, outside the public portfolio.
+/docs/*_interview_guide.md
+/docs/*_career_pack.md
+/docs/*_demo_script.md
+
 # Temporary files
 *.tmp
 *.log

@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check out publishable code
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v7

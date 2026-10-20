@@ -198,7 +198,7 @@ cd web
 npm run build
 ```
 
-当前完整本地数据工作区设计为 178 项测试：152 项 P0–P5 数据、模型与产品测试，18 项 P6 作品集契约，以及 8 项 P7 Pages 内容、安全和发布契约。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性、共同因子、多重检验、样本外增益和历史边界；全新 clone 在恢复历史数据前运行 40 项 code-only 测试、全站 lint、网站构建和 Pages 白名单校验。
+P7 发布时的本地验收包含 178 项测试；此后补充了历史文件撤回、其他分支和标签、浅克隆等公开边界回归检查。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性、共同因子、多重检验、样本外增益和历史边界。全新 clone 在恢复历史数据前，运行上方无数据测试命令、全站 lint、网站构建和 Pages 白名单校验；测试不需要本地求职准备材料。
 
 ## 关键文档
 
@@ -206,22 +206,17 @@ npm run build
 - `PROJECT_ROADMAP.md`：P0–P7 的决策问题、经济学机制、正式结果和 Pricing 接口总览。
 - `docs/p2_final_model_card.md`：一次性最终测试与产品×跨度发布矩阵。
 - `docs/p2_runbook.md`：P2 本地重建和验收顺序。
-- `docs/p2_interview_guide.md`：面向 pricing / data science 求职的项目讲解与演示路径。
 - `docs/p3_final_model_card.md`：独立事件分类的最终测试、产品切片和发布门槛。
 - `docs/p3_runbook.md`：P3 从 Gold 到预警页面的冻结重建顺序。
 - `docs/p4_runbook.md`：P4 从坐标维度到采购页面的顺序化重建与排错说明。
-- `docs/p4_interview_guide.md`：P4 的求职讲解、演示路径和常见追问。
 - `docs/p4_delivery_checklist.md`：P4 最终测试、构建、HTTP 响应和证据清单。
 - `docs/economics_pricing_stage_gate.md`：P0–P7 回顾及后续每阶段必过的经济学/Pricing 七问门槛。
 - `docs/p5_readiness_checklist.md`：P5 开工结论、传播分析契约、经济学门槛和 GitHub/本地边界。
 - `docs/p5_model_card.md`：一次性 final test、网络 no-go 和共同冲击降级结论。
 - `docs/p5_runbook.md`：P5 顺序化复现、final 已消费约束、验收和排错。
-- `docs/p5_interview_guide.md`：面向 pricing / economics / data science 岗位的 P5 讲解路径。
 - `docs/p5_delivery_checklist.md`：P5 数据、统计、Economics/Pricing Gate、页面和 Git 边界清单。
 - `docs/p6_evidence_matrix.md`：P0–P5 的决策、经济机制、基线、正式证据和不可声称内容。
 - `docs/pricing_integration_contract.md`：本项目向 pricing engine 提供只读决策输入的设计契约。
-- `docs/p6_career_pack.md`：三类目标岗位的简历 bullets、面试回答和边界用语。
-- `docs/p6_demo_script.md`：90 秒与 5 分钟的本地演示脚本。
 - `docs/p6_delivery_checklist.md`：P6 叙事、质量、无数据 CI、Gate 和 Git 边界清单。
 - `docs/p7_delivery_checklist.md`：P7 公开 URL、Actions、metadata、内容、数据边界和最终 Gate 清单。
 - `docs/data_access_and_reproducibility.md`：作品集模式、完整数据恢复、Git 排除范围和公开许可门槛。
@@ -230,7 +225,7 @@ npm run build
 - `docs/coverage_tier_summary.md`：30 种蔬菜的 Tier A/B/C 城市计数。
 - `docs/p1_data_stories.md`：由正式 mart 自动生成的 3 个面试演示故事。
 
-详细阶段计划与执行日志包含内部任务卡、回退过程和本地证据路径，仅保留在本机，不进入 GitHub；公开路线图、模型卡和方法文档用于说明设计、验收与边界。
+产品说明、详细阶段计划、内部评审、执行日志，以及简历准备、面试问答和演示脚本只保留在本机，不进入公开目录或提交历史。公开路线图、模型卡和方法文档用于说明设计、验收与边界。检查程序会检查当前文件和所有本地分支、标签中的每次提交；CI 必须读取完整历史。旧提交在 GitHub 上的缓存需要另行核验，不能仅凭本地检查通过就声称已从服务器彻底删除。
 
 ## 使用边界
 

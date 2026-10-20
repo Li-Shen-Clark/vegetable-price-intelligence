@@ -1,234 +1,87 @@
 # Vegetable Price Intelligence
 
-**作品集入口：** [Live Portfolio](https://li-shen-clark.github.io/vegetable-price-intelligence/) · [Portfolio Case Study](PORTFOLIO_CASE_STUDY.md) · [Project Roadmap](PROJECT_ROADMAP.md) · 本地网站 `/case-study`
+**[View the live portfolio](https://li-shen-clark.github.io/vegetable-price-intelligence/)** · [Project Case Study](PORTFOLIO_CASE_STUDY.md) · [Project Roadmap](PROJECT_ROADMAP.md)
 
-该项目把 2014–2022 年、117 个城市、30 种蔬菜的批发市场日度报价整理为可追溯的市场事实、城市日价格和覆盖 Tier，并在此基础上实现 Price Monitor、概率预测、风险预警、采购情景，以及共同冲击与价格传播实验。
+I built a historical market intelligence project that connects wholesale vegetable prices to forecasting, risk review, and procurement scenarios. It covers **117 Chinese cities and 30 vegetables**, using observations from 2014 through **June 22, 2022**.
 
-**项目时间线：2021–Present。** 2021 年开始整理、统一和研究底层批发价格数据；2026 年在这项多年研究资产上开发 forecasting、risk-classification 与 model-governance 产品层。该时间线不表示 forecasting system 在 2021 年已经存在。
+I began assembling and harmonizing the underlying data in **2021**, then developed the forecasting, risk, and decision applications in **2026**. The public website presents the methods and results; the analytical applications run locally with authorized data.
 
-它与现有 pricing engine 互补。pricing engine 面向当下的报价执行、规则和交易流程；本项目提供历史市场情报、数据质量、预测与风险证据。未来可以把这些输出作为 engine 的决策输入，但它本身不是实时定价执行系统。
+## My contribution
 
-从 P5 开始，所有阶段必须先通过统一的 Economics & Pricing Stage Gate：明确决策用户、经济机制、单位与约束、比较基准或识别、不确定性、Pricing 工作流接口和不可声称内容。Gate 见 `docs/economics_pricing_stage_gate.md`，避免只增加模型而丢失经济问题。
+- **Data engineering:** I built an auditable pipeline for **8.68 million market records**, producing 7.36 million city-day records with market mappings, quality flags, and coverage tiers.
+- **Modeling and evaluation:** I developed price forecasts and an independent price-spike classifier, compared them with simple baselines, and separated model selection from final testing.
+- **Decision applications:** I built five local interfaces for historical monitoring, forecasts, risk alerts, procurement scenarios, and common price shocks. The procurement tool compares sourcing options under transport, loss, and risk assumptions.
+- **Release decisions:** I defined when to use a model, retain a baseline, withhold an unreliable interval, or reject a feature. I implemented tests and publication checks, and built the public case study.
 
-当前状态：**P0–P7 v0.1 已完成验收，P7 求职版已公开发布**。P2 的正式结论是 `partial_release`；P3 为 `alert_release`；P4 为只支持历史参数化演示的 `scenario_release`；P5 的方向网络未通过 final-test 门槛，因此正式降级为 `common_shock_only`。P6 已交付无数据 Case Study、Pricing 集成设计契约、岗位化求职材料和只读代码 CI；P7 把英文优先的无数据 Case Study 发布到 GitHub Pages。五个依赖授权数据的分析工作台仍只在本地运行。
+The implementation uses Python, pandas, NumPy, SciPy, and Parquet for analysis; TypeScript and React with Vinext/Vite for the local applications; and GitHub Actions and GitHub Pages for checks and the public website.
 
-## 已完成的数据资产
+## Selected results
 
-```text
-dataSource/rawData/*.csv
-        ↓
-data/bronze/fact_market_price_raw.parquet
-        ↓ 市场映射
-data/silver/fact_market_price_mapped.parquet
-        ↓ 行级质量
-data/silver/fact_market_price_quality.parquet
-        ↓ 发布与两级聚合
-data/gold/fact_market_price.parquet
-data/gold/fact_city_price.parquet
-        ↓ 覆盖和质量门槛
-data/gold/coverage_tiers.parquet
+These results come from historical backtests and a final test set held apart from model selection.
+
+| Area | Result | What it means for the product |
+| --- | --- | --- |
+| **Price forecasting** | Weighted absolute percentage error (WAPE) was **17.54%**, versus **18.72%** for the selected baseline combination: a **6.30% relative improvement**, below the 8% overall target. | The main decision horizons are 14 and 28 days. Only qualifying product–horizon combinations use model forecasts; weaker combinations retain baselines, and unreliable intervals are withheld. |
+| **Price-spike alerts** | Precision–recall area under the curve (PR-AUC) was **0.2204**, versus **0.0775** for the best simple baseline. At the frozen threshold, precision was **21.31%** and recall was **37.69%**. | Alerts help prioritize human review. Most alerts were false positives, so the system does not trigger automatic pricing actions. |
+| **City relationships** | Only **4 of 15** relationships selected before the final test improved prediction error in that test. Median improvement was **−1.39%**. | I withheld the directional network and retained common-shock and city-exposure analysis. The results do not establish causal price transmission. |
+
+The project supports historical analysis and decisions under stated assumptions. The data does not include current quotes, inventory, supplier capacity, or actual freight costs. Procurement rankings identify candidates for inquiry; they do not establish realized savings or authorize orders.
+
+See the [evidence matrix](docs/p6_evidence_matrix.md) for the results, baselines, and limitations behind each claim.
+
+## Run locally
+
+### Preview the public website
+
+From the repository root, use Python 3 to serve the same static files published on GitHub Pages:
+
+```bash
+python3 -m http.server 8765 --directory portfolio-site
 ```
 
-- 市场事实：8,682,381 行，完整保留无效价、范围外城市和质量候选风险。
-- 城市日事实：7,358,606 行，以市场日中位数再取城市中位数。
-- 覆盖 Tier：3,510 个蔬菜×城市组合，A/B/C 为 919 / 1,814 / 777。
-- 正式参考表：30 种蔬菜、117 个城市、269 个原始市场名称。
+Open [localhost:8765](http://localhost:8765/). This preview requires no source data or JavaScript build.
 
-## P1 Historical Price Monitor
+### Run the local application
 
-P1 是面向 pricing、采购和商业分析场景的历史情报工作台。它不是实时定价执行系统，提供：
+Use **Node.js 22.13 or later**:
 
-- 30 种蔬菜与 Tier A/B 城市的历史月度价格趋势；
-- 所选历史月份的价格、月环比、同期城市排名和来源可靠性 KPI；
-- 跨城市中位数、四分位价格带、最高/最低价与省份摘要；
-- 1–12 月的跨年历史季节区间；
-- good/caution/poor 日数、报告市场数、全期覆盖和 Tier 原因；
-- 加载、无数据和数据错误状态，以及常驻的历史截止日说明。
+```bash
+cd web
+npm ci
+npm run dev
+```
 
-浏览器不会直接加载 7,358,606 行城市日事实。`src/monitor/build_monitor_data.py` 将 Gold 聚合为 285,723 条城市×月份记录，拆成 30 个按需加载的产品文件；完整 Web mart 约 24 MiB，单产品约 0.7–0.9 MiB。
+Open [localhost:3000/case-study](http://localhost:3000/case-study) for the case study. The five analytical pages require authorized local data and show a data-unavailable state in a fresh clone.
 
-## P2 Probabilistic Price Forecasting
+The public repository includes code, tests, configuration, documentation, and static assets. Source price records, generated datasets, model outputs, and browser data are excluded. Full reproduction requires authorized inputs and the steps in [Data Access and Reproducibility](docs/data_access_and_reproducibility.md).
 
-P2 对冻结的 10 种核心蔬菜和 366 条 Tier A 产品—城市序列进行 7/14/28 日历史回测：
+### Check the public repository
 
-- 训练 / validation / final-test 任务分别为 43,533 / 11,882 / 16,217 行；
-- 三种基线是最近价格、周度模式和历史季节中位数；最近价格在 validation 的 30 个产品×跨度中赢得 28 个；
-- 从 28 个候选中冻结 `hurdle_a10_s0p75`，validation WAPE 相对最佳分组基线改善 6.81%；
-- 一次性 final test 的模型 WAPE 为 17.54%，最佳基线为 18.72%，相对改善 6.30%；
-- 7 日只有 2/10 个产品通过点预测门槛，14 日为 9/10；总体 80% 区间覆盖率为 70.91%；
-- 最终发布矩阵为 1 个 `model_target`、3 个 `model_minimum`、16 个 `point_only_model`、10 个 `baseline_fallback`。
-
-正式 MVP 决策跨度因此调整为 **14/28 日**：7 日 8/10 个产品回退最近价格，10 个产品的相对 WAPE 改善简单平均为 −4.24%；14 日和 28 日均有 9/10 个产品释放模型点预测，平均改善分别为 4.42% 和 11.33%。7 日仍保留为完整可复现的压力测试和回退示例，冻结的 7/14/28 日实验与发布矩阵没有被事后改写；P4 采购情景默认使用证据最强的 28 日跨度。
-
-`/forecast` 只展示 T5 发布矩阵允许的能力。区间欠校准的切片只展示 P50，失败切片显示冻结最佳基线；页面固定标注 Historical backtest、数据截止日和“不是当前报价”。
-
-## P3 Price Risk Alert
-
-P3 没有把 P2 点预测直接改名为预警，而是独立定义并评估“未来 14 天显著涨价事件”：
-
-- 10 种核心蔬菜、366 条 Tier A 产品—城市序列，每周一生成历史模拟预警；
-- 主事件要求未来 14 日峰值涨幅至少 20%，且不低于起点前历史季节峰值涨幅的 90 分位；同序列 21 天内去重；
-- train / validation / final-test 分别为 70,589 / 16,388 / 23,530 行，validation 事件率 5.91%；
-- validation 从 6 个逻辑回归候选中冻结 `logistic_r0.0001_pw1` 和行动阈值 0.0966；
-- 一次性 final test 有 1,576 个事件，PR-AUC 0.2204，最佳简单基线 0.0775，相对提升 184.29%；
-- 冻结阈值下 precision 21.31%、recall 37.69%、FPR 9.99%，平均提前 7.18 天，最强 10% 事件召回 63.19%。
-
-P3 全局状态为 `alert_release`，表示离线排序和固定阈值通过预先门槛，不表示可以自动执行。发出提醒中仍有 78.69% 是误报；`/alerts` 因此只把风险信号作为人工复核触发器，明确展示命中、误报、漏报、局部/区域范围和事后实际结果，不自动报价或调价。
-
-## P4 Procurement Scenario Engine
-
-P4 把 P2 已发布的模型或基线点价格转换为可解释的采购候选比较，而不是重新训练或掩盖 P2 的失败切片：
-
-- 固定 2022-05-01 历史情景，覆盖 10 种核心蔬菜、41 个 Tier A 来源城市和 7/14/28 日，页面默认 28 日；
-- 843 行采购快照逐组保持 P2 的 1/3/16/10 发布矩阵；`baseline_fallback` 明确显示“不是模型预测”；
-- 只有 P2 已发布区间的 99 行使用 `P90−点价格`，其余 744 行使用情景起点以前的历史发布路线残差 Q80，且不伪装成预测区间；
-- 117 个目标城市使用独立、可追溯的城市锚点；距离是 Haversine 直线距离乘 1.25 情景系数，不是公路里程；
-- 到岸成本统一为 `(发布点价格 + 运输 + 风险)/(1−损耗率)`，本地基准和外地候选使用同一公式；
-- 36 组运输费率、损耗率和风险偏好组合量化 Top 3 与第一名稳定性，共形成 1,080 行明细。
-
-`/procurement` 支持目标城市、产品、跨度、采购量、运费、损耗、最大距离、风险偏好和最低可靠性的即时情景重算。输出是“值得询价的候选来源”，没有供应能力、库存、真实运费或成交承诺，不是采购订单或已实现节省。
-
-## P5 Common Shock & City Exposure
-
-P5 把“价格冲击传播”作为可被否决的预测实验，而不是直接生成相关网络：
-
-- 在同一地理候选集合上，即使已经做 FDR，原始同时相关关系仍有 1,481 条；剔除季节项与 leave-one-out 全国共同因子后降至 776 条，减少 47.60%，说明共享运动会制造看似密集的网络；
-- 10 种核心蔬菜共有 342 条合格 Tier A 产品—城市序列；地理规则把完整配对事前压缩为 2,736 条候选边；
-- 3 日频模型先剔除训练期季节项与 leave-one-out 全国共同因子，再比较来源城市残差滞后相对“目标自身+共同因子”基线的额外预测价值；
-- 991 条候选可建模，训练期 174 条原始显著关系经产品内 BH-FDR 后剩 51 条，只有 15 条通过 validation 增益门槛；
-- 15 条均通过训练分窗和 250 次 moving-block bootstrap；14 条周频可估计，其中 12 条同向；
-- 一次性 final test 只有 4/15 条 RMSE 改善为正、2/15 条达到至少 1%，正增益占比 26.67%，中位改善 -1.39%；
-- 方向网络因此发布 0 条边，产品保留共同冲击与城市历史暴露。这是方法论治理结果：正确的校正和样本外门槛阻止了一个外观漂亮但证据不足的网络进入产品。
-
-`/propagation` 明确显示 `common_shock_only`，提供共同价格变化时间线、城市暴露排名，以及区分“共同冲击校正”和“方向性样本外门槛”的双证据链；不展示来源—目标边、传播中心或路径。该输出只用于扩大成本、供应与报价人工复核范围，不是因果结论、实时预警或自动调价信号。
-
-## 快速开始
-
-### 代码作品集模式（GitHub 不含数据）
-
-GitHub 基线只保留代码、配置、测试和 Markdown 文档，不上传原始数据、CSV/Parquet、参考映射、模型输出或浏览器 JSON：
+From the repository root, use Python 3.11 or later:
 
 ```bash
 python3 scripts/verify_portfolio_bundle.py
-python3 -m unittest tests.test_portfolio_bundle tests.test_pricing_narrative tests.test_p5_propagation_page tests.test_p6_portfolio_contract tests.test_p6_career_materials tests.test_p6_case_study_page tests.test_p6_ci_contract tests.test_p7_pages_site -v
+python3 scripts/verify_pages_bundle.py
+python3 -m unittest tests.test_portfolio_bundle tests.test_p7_pages_site -v
+```
+
+These checks need no source data. Use a full Git clone because the publication checks inspect commit history.
+
+After installing the web dependencies, check the local application with:
+
+```bash
 cd web
-npm ci
 npm run lint
 npm run build
 ```
 
-代码作品集模式用于查看实现、方法、测试与产品设计，并验证静态 `/case-study` 和网站 shell 可以完成生产构建；全新 clone 不包含填充五个分析工作台所需的数据。要运行有内容的完整本地演示，必须在获授权的本地工作区恢复或重建 `web/public/data`，再执行 `npm run dev`。数据边界与恢复方式见 `docs/data_access_and_reproducibility.md`。
+Full analysis also requires the dependencies in [requirements.txt](requirements.txt). Follow the stage runbooks below when restoring an authorized workspace; existing final-test results remain frozen.
 
-### 完整数据模式
+## Documentation
 
-环境依赖见 `requirements.txt`。在项目根目录运行一条命令，从现有原始 CSV 重建 P0 全部 Parquet 并执行数据契约测试：
-
-```bash
-python3 src/pipeline/build_p0.py
-```
-
-恢复完整授权数据后运行全量只读测试：
-
-```bash
-python3 -m unittest discover -s tests -v
-```
-
-重建 P1 Web mart 和 3 个可复现数据故事：
-
-```bash
-python3 src/monitor/build_monitor_data.py
-python3 src/monitor/build_p1_stories.py
-```
-
-按冻结顺序重建 P2（完整说明见 `docs/p2_runbook.md`）：
-
-```bash
-python3 -m src.forecast.audit_p2_feasibility
-python3 -m src.forecast.build_forecast_mart
-python3 -m src.forecast.build_baseline_scorecard
-python3 -m src.forecast.train_point_models
-python3 -m src.forecast.calibrate_intervals
-python3 -m src.forecast.evaluate_final_test
-python3 -m src.forecast.build_forecast_web_data
-```
-
-按冻结顺序重建 P3（完整说明见 `docs/p3_runbook.md`）：
-
-```bash
-python3 src/alerts/audit_p3_feasibility.py
-python3 src/alerts/build_alert_mart.py
-python3 src/alerts/build_alert_baselines.py
-python3 src/alerts/train_alert_models.py
-python3 src/alerts/evaluate_alert_final_test.py
-python3 src/alerts/build_alert_web_data.py
-```
-
-按冻结顺序重建 P4（完整说明见 `docs/p4_runbook.md`）：
-
-```bash
-python3 -m src.procurement.build_city_geo
-python3 -m src.procurement.audit_p4_feasibility
-python3 -m src.procurement.build_procurement_mart
-python3 -m src.procurement.build_default_scenarios
-python3 -m src.procurement.run_sensitivity
-python3 -m src.procurement.build_procurement_web_data
-```
-
-P5 v0.1 的 final test 已消费，正式原版本禁止重跑。完整方法、前置顺序和新实验版本要求见 `docs/p5_runbook.md`；当前版本可安全重建 final 之前的数据层和本地降级页面，但不得删除正式 release artifact 后重开同一 final test。
-
-本地运行 P1–P6 网站（Node.js ≥22.13）：
-
-```bash
-cd web
-npm install
-npm run dev
-```
-
-- `http://localhost:3000/`：Historical Price Monitor
-- `http://localhost:3000/forecast`：Forecast Decision Lab
-- `http://localhost:3000/alerts`：Price Risk Alert Replay
-- `http://localhost:3000/procurement`：Procurement Scenario Engine
-- `http://localhost:3000/propagation`：Common Shock & City Exposure
-- `http://localhost:3000/case-study`：无数据依赖的招聘 Case Study
-
-生产构建检查：
-
-```bash
-cd web
-npm run build
-```
-
-P7 发布时的本地验收包含 178 项测试；此后补充了历史文件撤回、其他分支和标签、浅克隆等公开边界回归检查。完整数据测试检查本地 Parquet/JSON 的哈希、行数、主键、时间切分、泄漏边界、事件去重、PR 指标、固定阈值、冻结模型复算、发布路线、城市坐标、无前视风险、成本手算、参数敏感性、共同因子、多重检验、样本外增益和历史边界。全新 clone 在恢复历史数据前，运行上方无数据测试命令、全站 lint、网站构建和 Pages 白名单校验；测试不需要本地求职准备材料。
-
-## 关键文档
-
-- `PORTFOLIO_CASE_STUDY.md`：招聘方可在数分钟内阅读的项目结论、证据与边界。
-- `PROJECT_ROADMAP.md`：P0–P7 的决策问题、经济学机制、正式结果和 Pricing 接口总览。
-- `docs/p2_final_model_card.md`：一次性最终测试与产品×跨度发布矩阵。
-- `docs/p2_runbook.md`：P2 本地重建和验收顺序。
-- `docs/p3_final_model_card.md`：独立事件分类的最终测试、产品切片和发布门槛。
-- `docs/p3_runbook.md`：P3 从 Gold 到预警页面的冻结重建顺序。
-- `docs/p4_runbook.md`：P4 从坐标维度到采购页面的顺序化重建与排错说明。
-- `docs/p4_delivery_checklist.md`：P4 最终测试、构建、HTTP 响应和证据清单。
-- `docs/economics_pricing_stage_gate.md`：P0–P7 回顾及后续每阶段必过的经济学/Pricing 七问门槛。
-- `docs/p5_readiness_checklist.md`：P5 开工结论、传播分析契约、经济学门槛和 GitHub/本地边界。
-- `docs/p5_model_card.md`：一次性 final test、网络 no-go 和共同冲击降级结论。
-- `docs/p5_runbook.md`：P5 顺序化复现、final 已消费约束、验收和排错。
-- `docs/p5_delivery_checklist.md`：P5 数据、统计、Economics/Pricing Gate、页面和 Git 边界清单。
-- `docs/p6_evidence_matrix.md`：P0–P5 的决策、经济机制、基线、正式证据和不可声称内容。
-- `docs/pricing_integration_contract.md`：本项目向 pricing engine 提供只读决策输入的设计契约。
-- `docs/p6_delivery_checklist.md`：P6 叙事、质量、无数据 CI、Gate 和 Git 边界清单。
-- `docs/p7_delivery_checklist.md`：P7 公开 URL、Actions、metadata、内容、数据边界和最终 Gate 清单。
-- `docs/data_access_and_reproducibility.md`：作品集模式、完整数据恢复、Git 排除范围和公开许可门槛。
-- `docs/data_dictionary.md`：来源单位、所有核心表字段和业务含义。
-- `docs/data_quality_report.md`：七项平台指标、主要风险和下游使用边界。
-- `docs/coverage_tier_summary.md`：30 种蔬菜的 Tier A/B/C 城市计数。
-- `docs/p1_data_stories.md`：由正式 mart 自动生成的 3 个面试演示故事。
-
-产品说明、详细阶段计划、内部评审、执行日志，以及简历准备、面试问答和演示脚本只保留在本机，不进入公开目录或提交历史。公开路线图、模型卡和方法文档用于说明设计、验收与边界。检查程序会检查当前文件和所有本地分支、标签中的每次提交；CI 必须读取完整历史。旧提交在 GitHub 上的缓存需要另行核验，不能仅凭本地检查通过就声称已从服务器彻底删除。
-
-## 使用边界
-
-最新数据为 2022-06-22，不能用于 2026 年当前报价或采购执行。原始数据没有成交量、规格、包装、道路距离、运费和供应能力；采购模块只能先做明确标注假设的情景分析。Tier A 也只表示适合在本历史窗口内做正式回测，不表示实时可用。
-
-P1–P5 的数据型分析工作台仍为**本地历史演示**；P7 只公开不含数据的招聘 Case Study。P2 已证明 14/28 日部分切片具有样本外改善，但没有通过 8% 总体目标、7 日产品覆盖门槛和总体区间覆盖门槛。P3 独立通过全局离线门槛，但召回仍为 37.69%，且提醒中 78.69% 是误报。P4 对弱预测组保留基线，并用参数化运输、损耗与风险缓冲形成询价候选。P5 的方向关系未通过 final-test 网络门槛，因此只发布共同冲击与城市暴露。P6/P7 只把这些可追溯证据包装并公开为求职作品集；公开上线不产生商业收益、实时系统或更强模型证据。整个系统不能声称实时采购建议、真实节省、因果传播、最优零售价或自动调价。
+- The [Project Case Study](PORTFOLIO_CASE_STUDY.md) explains the decisions, methods, and results.
+- The [Project Roadmap](PROJECT_ROADMAP.md) maps the implementation stages to their outcomes.
+- The model cards document [forecasting](docs/p2_final_model_card.md), [risk alerts](docs/p3_final_model_card.md), and [common shocks and city relationships](docs/p5_model_card.md).
+- The runbooks describe [forecasting](docs/p2_runbook.md), [risk alerts](docs/p3_runbook.md), [procurement scenarios](docs/p4_runbook.md), and [common-shock analysis](docs/p5_runbook.md).
+- The [Pricing Integration Contract](docs/pricing_integration_contract.md) describes how the outputs could support a pricing workflow with human approval.
+- The [Data Access and Reproducibility guide](docs/data_access_and_reproducibility.md) explains data requirements and publication boundaries.
